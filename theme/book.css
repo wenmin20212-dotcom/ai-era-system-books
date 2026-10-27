@@ -1,0 +1,8 @@
+:root { --content-max-width: 820px; }
+html { font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+.content p, .content li { line-height: 1.85; }
+.content img { display: block; margin: 1.2em auto; max-width: 100%; }
+.content table { display: block; overflow-x: auto; }
+blockquote { border-inline-start-color: #1d5fbf; }
+.giscus-box { margin-top: 3em; }
+.giscus-hint { color: #666; font-size: 0.9em; }
