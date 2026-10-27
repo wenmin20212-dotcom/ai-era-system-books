@@ -9,9 +9,9 @@
   s.src = 'https://giscus.app/client.js';
   var cfg = {
     'data-repo': 'wenmin20212-dotcom/ai-era-system-books',
-    'data-repo-id': 'REPO_ID',
-    'data-category': 'CATEGORY_NAME',
-    'data-category-id': 'CATEGORY_ID',
+    'data-repo-id': 'R_kgDOVY1YMA',
+    'data-category': 'Announcements',
+    'data-category-id': 'DIC_kwDOVY1YMM4DJt99',
     'data-mapping': 'pathname',
     'data-strict': '1',
     'data-reactions-enabled': '1',
