@@ -1,0 +1,20 @@
+[book]
+title = "智能手机"
+authors = ["文军"]
+language = "zh-CN"
+src = "src"
+description = "从微型晶体管到移动文明的微缩奇迹"
+
+[output.html]
+default-theme = "light"
+preferred-dark-theme = "navy"
+site-url = "/ai-era-system-books/smartphone/"
+git-repository-url = "https://github.com/wenmin20212-dotcom/ai-era-system-books"
+additional-js = ["giscus.js"]
+additional-css = ["book.css"]
+
+[output.html.search]
+enable = true
+
+[output.html.print]
+enable = true
