@@ -8,7 +8,7 @@ description = "从微型晶体管到移动文明的微缩奇迹"
 [output.html]
 default-theme = "light"
 preferred-dark-theme = "navy"
-site-url = "/ai-era-system-books/smartphone/"
+site-url = "/smartphone/"
 git-repository-url = "https://github.com/wenmin20212-dotcom/ai-era-system-books"
 additional-js = ["giscus.js"]
 additional-css = ["book.css"]
