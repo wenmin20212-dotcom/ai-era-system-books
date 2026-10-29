@@ -1,5 +1,7 @@
 # 关于本书
 
+<img src="images/cover.jpg" alt="《智能手机》封面" style="max-width:320px;width:70%">
+
 **《智能手机》**——从微型晶体管到移动文明的微缩奇迹
 
 《AI时代系统知识基础读物》丛书，作者：文军。
