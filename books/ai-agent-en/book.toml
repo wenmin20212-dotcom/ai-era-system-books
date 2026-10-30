@@ -1,0 +1,20 @@
+[book]
+title = "AI Agents"
+authors = ["Wen Jun"]
+language = "en"
+src = "src"
+description = "A Systems Perspective, from an Assistant That Acts on Its Own to Multi-Agent Collaboration"
+
+[output.html]
+default-theme = "light"
+preferred-dark-theme = "navy"
+site-url = "/ai-agent-en/"
+git-repository-url = "https://github.com/wenmin20212-dotcom/ai-era-system-books"
+additional-js = ["giscus.js"]
+additional-css = ["book.css"]
+
+[output.html.search]
+enable = true
+
+[output.html.print]
+enable = true
