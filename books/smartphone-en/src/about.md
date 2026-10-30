@@ -4,9 +4,7 @@
 
 **The Smartphone** — A Miniature Marvel from Microscopic Transistors to Mobile Civilization
 
-Part of the series *Foundational Readings in Systems Knowledge for the AI Era*, by Wen Jun. English edition, translated from the Chinese.
-
-> **Draft for comment**: This book was written with AI assistance (the SageWrite writing system, Claude model). It has been through one round of fact-checking but has not yet had a full human review. If you find errors, unclear passages, or things that could be explained better, please leave a comment at the bottom of any page. Comments are collected regularly and used to revise the next edition.
+Part of the series *Foundational Readings in Systems Knowledge for the AI Era*, by Wen Jun.
 
 ## How to read this book
 
