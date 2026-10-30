@@ -1,0 +1,20 @@
+[book]
+title = "The Smartphone"
+authors = ["Wen Jun"]
+language = "en"
+src = "src"
+description = "A Miniature Marvel from Microscopic Transistors to Mobile Civilization"
+
+[output.html]
+default-theme = "light"
+preferred-dark-theme = "navy"
+site-url = "/smartphone-en/"
+git-repository-url = "https://github.com/wenmin20212-dotcom/ai-era-system-books"
+additional-js = ["giscus.js"]
+additional-css = ["book.css"]
+
+[output.html.search]
+enable = true
+
+[output.html.print]
+enable = true
