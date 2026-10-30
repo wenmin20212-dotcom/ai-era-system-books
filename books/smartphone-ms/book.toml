@@ -1,0 +1,20 @@
+[book]
+title = "Telefon Pintar"
+authors = ["Wen Jun"]
+language = "ms"
+src = "src"
+description = "Keajaiban Mini daripada Transistor Mikroskopik kepada Tamadun Mudah Alih"
+
+[output.html]
+default-theme = "light"
+preferred-dark-theme = "navy"
+site-url = "/smartphone-ms/"
+git-repository-url = "https://github.com/wenmin20212-dotcom/ai-era-system-books"
+additional-js = ["giscus.js"]
+additional-css = ["book.css"]
+
+[output.html.search]
+enable = true
+
+[output.html.print]
+enable = true

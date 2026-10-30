@@ -6,6 +6,7 @@
   box.className = 'giscus-box';
   var lang = (document.documentElement.lang || 'zh-CN');
   var L = /^en/.test(lang) ? ['Reader comments', 'Comments are welcome (GitHub account required).', 'en']
+        : /^ms/.test(lang) ? ['Komen pembaca', 'Komen dialu-alukan (perlu akaun GitHub).', 'en']
         : /^zh-(TW|Hant)/i.test(lang) ? ['讀者留言', '歡迎留言交流（需 GitHub 帳號）。', 'zh-TW']
         : ['读者留言', '欢迎留言交流（需 GitHub 账号）。', 'zh-CN'];
   box.innerHTML = '<hr><h2>' + L[0] + '</h2><p class="giscus-hint">' + L[1] + '</p>';
