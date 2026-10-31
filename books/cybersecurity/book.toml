@@ -1,0 +1,20 @@
+[book]
+title = "网络安全系统"
+authors = ["文军"]
+language = "zh-CN"
+src = "src"
+description = "从一条可疑短信到层层设防的数字世界的系统透视"
+
+[output.html]
+default-theme = "light"
+preferred-dark-theme = "navy"
+site-url = "/cybersecurity/"
+git-repository-url = "https://github.com/wenmin20212-dotcom/ai-era-system-books"
+additional-js = ["giscus.js"]
+additional-css = ["book.css"]
+
+[output.html.search]
+enable = true
+
+[output.html.print]
+enable = true
