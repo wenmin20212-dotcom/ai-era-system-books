@@ -1,0 +1,20 @@
+[book]
+title = "The Internet"
+authors = ["Wen Jun"]
+language = "en"
+src = "src"
+description = "A Systems View from Clicking a Web Page to Global Network Interconnection"
+
+[output.html]
+default-theme = "light"
+preferred-dark-theme = "navy"
+site-url = "/internet-en/"
+git-repository-url = "https://github.com/wenmin20212-dotcom/ai-era-system-books"
+additional-js = ["giscus.js"]
+additional-css = ["book.css"]
+
+[output.html.search]
+enable = true
+
+[output.html.print]
+enable = true
