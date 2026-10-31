@@ -1,8 +1,8 @@
 # 關於本書
 
-<img src="images/cover.jpg" alt="《AI智能體》封面" style="max-width:320px;width:70%">
+<img src="images/cover.jpg" alt="《人工智慧代理》封面" style="max-width:320px;width:70%">
 
-**《AI智能體》**——從一個會自己動手的助手到多智能體協作的系統透視
+**《人工智慧代理》**——從一個會自己動手的助手到多代理協作的系統透視
 
 《AI時代系統知識基礎讀物》叢書，作者：文軍。
 

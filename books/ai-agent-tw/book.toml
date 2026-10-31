@@ -1,9 +1,9 @@
 [book]
-title = "AI智能體"
+title = "人工智慧代理"
 authors = ["文軍"]
 language = "zh-TW"
 src = "src"
-description = "從一個會自己動手的助手到多智能體協作的系統透視"
+description = "從一個會自己動手的助手到多代理協作的系統透視"
 
 [output.html]
 default-theme = "light"
