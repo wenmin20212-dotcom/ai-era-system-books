@@ -1,0 +1,20 @@
+[book]
+title = "操作系统"
+authors = ["文军"]
+language = "zh-CN"
+src = "src"
+description = "从按下电源键到千万行代码协同运转的系统透视"
+
+[output.html]
+default-theme = "light"
+preferred-dark-theme = "navy"
+site-url = "/os/"
+git-repository-url = "https://github.com/wenmin20212-dotcom/ai-era-system-books"
+additional-js = ["giscus.js"]
+additional-css = ["book.css"]
+
+[output.html.search]
+enable = true
+
+[output.html.print]
+enable = true
