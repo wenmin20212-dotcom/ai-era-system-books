@@ -1,0 +1,20 @@
+[book]
+title = "AI智能體"
+authors = ["文軍"]
+language = "zh-TW"
+src = "src"
+description = "從一個會自己動手的助手到多智能體協作的系統透視"
+
+[output.html]
+default-theme = "light"
+preferred-dark-theme = "navy"
+site-url = "/ai-agent-tw/"
+git-repository-url = "https://github.com/wenmin20212-dotcom/ai-era-system-books"
+additional-js = ["giscus.js"]
+additional-css = ["book.css"]
+
+[output.html.search]
+enable = true
+
+[output.html.print]
+enable = true
