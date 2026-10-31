@@ -1,0 +1,20 @@
+[book]
+title = "互联网"
+authors = ["文军"]
+language = "zh-CN"
+src = "src"
+description = "从点开一个网页到全球网络互联的系统透视"
+
+[output.html]
+default-theme = "light"
+preferred-dark-theme = "navy"
+site-url = "/internet/"
+git-repository-url = "https://github.com/wenmin20212-dotcom/ai-era-system-books"
+additional-js = ["giscus.js"]
+additional-css = ["book.css"]
+
+[output.html.search]
+enable = true
+
+[output.html.print]
+enable = true
