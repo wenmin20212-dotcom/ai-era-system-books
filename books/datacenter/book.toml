@@ -1,0 +1,20 @@
+[book]
+title = "数据中心"
+authors = ["文军"]
+language = "zh-CN"
+src = "src"
+description = "从手机里的照片到巨型机房的系统透视"
+
+[output.html]
+default-theme = "light"
+preferred-dark-theme = "navy"
+site-url = "/datacenter/"
+git-repository-url = "https://github.com/wenmin20212-dotcom/ai-era-system-books"
+additional-js = ["giscus.js"]
+additional-css = ["book.css"]
+
+[output.html.search]
+enable = true
+
+[output.html.print]
+enable = true
