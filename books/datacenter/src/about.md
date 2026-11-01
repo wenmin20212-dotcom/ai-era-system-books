@@ -1,5 +1,7 @@
 # 关于本书
 
+<img src="images/cover.jpg" alt="《数据中心》封面" style="max-width:320px;width:70%">
+
 **《数据中心》**——从手机里的照片到巨型机房的系统透视
 
 《AI时代系统知识基础读物》丛书，作者：文军。
