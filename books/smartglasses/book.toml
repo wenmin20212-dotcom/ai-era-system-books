@@ -1,0 +1,20 @@
+[book]
+title = "智能眼镜"
+authors = ["文军"]
+language = "zh-CN"
+src = "src"
+description = "从光学、感知到AI协同的真实系统之旅"
+
+[output.html]
+default-theme = "light"
+preferred-dark-theme = "navy"
+site-url = "/smartglasses/"
+git-repository-url = "https://github.com/wenmin20212-dotcom/ai-era-system-books"
+additional-js = ["giscus.js"]
+additional-css = ["book.css"]
+
+[output.html.search]
+enable = true
+
+[output.html.print]
+enable = true

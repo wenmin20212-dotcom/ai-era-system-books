@@ -1,0 +1,20 @@
+[book]
+title = "芯片"
+authors = ["文军"]
+language = "zh-CN"
+src = "src"
+description = "从晶体管到系统协同的微观世界"
+
+[output.html]
+default-theme = "light"
+preferred-dark-theme = "navy"
+site-url = "/chip/"
+git-repository-url = "https://github.com/wenmin20212-dotcom/ai-era-system-books"
+additional-js = ["giscus.js"]
+additional-css = ["book.css"]
+
+[output.html.search]
+enable = true
+
+[output.html.print]
+enable = true
