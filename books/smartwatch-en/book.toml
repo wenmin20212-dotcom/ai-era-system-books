@@ -1,0 +1,20 @@
+[book]
+title = "Smartwatches"
+authors = ["Wen Jun"]
+language = "en"
+src = "src"
+description = "From Wrist-Worn Microsystems to Trusted Companions for Health and Everyday Life"
+
+[output.html]
+default-theme = "light"
+preferred-dark-theme = "navy"
+site-url = "/smartwatch-en/"
+git-repository-url = "https://github.com/wenmin20212-dotcom/ai-era-system-books"
+additional-js = ["giscus.js"]
+additional-css = ["book.css"]
+
+[output.html.search]
+enable = true
+
+[output.html.print]
+enable = true
