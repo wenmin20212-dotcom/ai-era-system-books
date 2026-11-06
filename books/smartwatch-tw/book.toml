@@ -1,0 +1,20 @@
+[book]
+title = "智能手錶"
+authors = ["文軍"]
+language = "zh-TW"
+src = "src"
+description = "從腕上微系統到可信的健康與生活夥伴"
+
+[output.html]
+default-theme = "light"
+preferred-dark-theme = "navy"
+site-url = "/smartwatch-tw/"
+git-repository-url = "https://github.com/wenmin20212-dotcom/ai-era-system-books"
+additional-js = ["giscus.js"]
+additional-css = ["book.css"]
+
+[output.html.search]
+enable = true
+
+[output.html.print]
+enable = true

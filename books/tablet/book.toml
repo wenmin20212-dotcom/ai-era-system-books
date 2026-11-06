@@ -1,0 +1,20 @@
+[book]
+title = "平板电脑"
+authors = ["文军"]
+language = "zh-CN"
+src = "src"
+description = "从触控手写到软硬件协同"
+
+[output.html]
+default-theme = "light"
+preferred-dark-theme = "navy"
+site-url = "/tablet/"
+git-repository-url = "https://github.com/wenmin20212-dotcom/ai-era-system-books"
+additional-js = ["giscus.js"]
+additional-css = ["book.css"]
+
+[output.html.search]
+enable = true
+
+[output.html.print]
+enable = true

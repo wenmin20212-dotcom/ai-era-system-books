@@ -1,0 +1,20 @@
+[book]
+title = "现代计算机"
+authors = ["文军"]
+language = "zh-CN"
+src = "src"
+description = "从微观芯片到宏观网络：穿透硬件黑盒的系统认知与 AI 协同指南"
+
+[output.html]
+default-theme = "light"
+preferred-dark-theme = "navy"
+site-url = "/computer/"
+git-repository-url = "https://github.com/wenmin20212-dotcom/ai-era-system-books"
+additional-js = ["giscus.js"]
+additional-css = ["book.css"]
+
+[output.html.search]
+enable = true
+
+[output.html.print]
+enable = true
