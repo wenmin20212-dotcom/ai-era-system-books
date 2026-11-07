@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>了解这套书 · AI时代系统知识基础读物</title>
+<meta name="description" content="以真实系统为中心，“书 + 实物 + AI”的系统知识丛书，作者文军。">
+<style>
+:root { --ink: #1f2933; --muted: #52606d; --line: #d9e2ec; --accent: #1d5fbf; --bg: #ffffff; --card: #f5f8fc; --night: #071326; --gold: #e8c777; }
+@media (prefers-color-scheme: dark) { :root { --ink: #e4e7eb; --muted: #9aa5b1; --line: #334e68; --accent: #7cb4ff; --bg: #0f1722; --card: #17212f; } }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", sans-serif; line-height: 1.6; }
+a { color: inherit; }
+.back { position: absolute; top: 14px; left: 16px; z-index: 3; color: #fff; font-size: .9em; text-decoration: none; opacity: .85; }
+.hero { position: relative; overflow: hidden; background: var(--night); color: #fff; min-height: 560px; display: flex; flex-direction: column; justify-content: center; }
+.wall { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; gap: 12px; opacity: .62; }
+.row { display: flex; gap: 12px; width: max-content; animation: slide 90s linear infinite; }
+.row.rev { animation-direction: reverse; }
+.row img { height: 262px; aspect-ratio: 2 / 3; object-fit: cover; border-radius: 4px; display: block; }
+@keyframes slide { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .row { animation: none; } }
+.hero::after { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(7,19,38,.9) 0%, rgba(7,19,38,.62) 50%, rgba(7,19,38,.2) 100%); }
+.lead { position: relative; z-index: 2; text-align: center; padding: 48px 20px; }
+.lead h1 { font-size: clamp(2em, 8vw, 3.2em); line-height: 1.2; margin: 0; letter-spacing: .02em; }
+.lead .series { color: var(--gold); letter-spacing: .12em; font-size: .95em; margin: 0 0 12px; }
+.lead .nums { display: flex; justify-content: center; gap: 28px; margin: 28px 0 0; padding: 0; list-style: none; }
+.nums b { display: block; font-size: 2em; line-height: 1.1; color: var(--gold); }
+.nums span { font-size: .85em; opacity: .85; }
+section { max-width: 960px; margin: 0 auto; padding: 56px 16px 0; }
+h2 { font-size: 1.5em; margin: 0 0 4px; }
+.note { color: var(--muted); margin: 0 0 22px; }
+.tri { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.t { border-radius: 10px; overflow: hidden; background: var(--night); color: #fff; display: flex; flex-direction: column; }
+.pic { height: 230px; position: relative; overflow: hidden; }
+.pic.book { display: flex; justify-content: center; align-items: center; background: linear-gradient(160deg, #0d2a52, #071326); }
+.pic.book img { position: absolute; height: 178px; aspect-ratio: 2 / 3; object-fit: cover; border-radius: 3px; box-shadow: 0 6px 18px rgba(0,0,0,.5); }
+.pic.book img:nth-child(1) { transform: translateX(-52px) rotate(-8deg); }
+.pic.book img:nth-child(2) { transform: translateX(52px) rotate(8deg); }
+.pic.book img:nth-child(3) { transform: translateY(-4px); }
+.pic.thing { background: url(smartwatch/images/cover.jpg) 50% 86% / 170% auto no-repeat; }
+.pic.ai { padding: 22px 16px; display: flex; flex-direction: column; justify-content: center; gap: 10px; background: linear-gradient(160deg, #0d2a52, #071326); font-size: .9em; }
+.msg { padding: 8px 12px; border-radius: 12px; max-width: 88%; line-height: 1.4; }
+.msg.q { align-self: flex-end; background: var(--gold); color: #2b2206; }
+.msg.a { align-self: flex-start; background: rgba(255,255,255,.14); }
+.dots { letter-spacing: .25em; }
+.cap { padding: 12px 16px 16px; }
+.cap b { font-size: 1.2em; } .cap span { display: block; opacity: .8; font-size: .9em; }
+.stairs { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.stairs li { margin-left: calc(var(--i) * 4.5%); display: flex; align-items: center; gap: 10px; padding: 9px 14px; border-radius: 6px; color: #fff; background: hsl(calc(216 - var(--i) * 15) 62% calc(34% + var(--i) * .5%)); }
+.stairs b { width: 1.4em; text-align: center; opacity: .75; font-weight: normal; }
+.stairs span { margin-left: auto; opacity: .9; font-size: .9em; text-align: right; }
+.grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.s { background: var(--card); border-radius: 10px; padding: 0 0 14px; overflow: hidden; }
+.s .art { height: 190px; position: relative; background: linear-gradient(160deg, #0d2a52, #071326); overflow: hidden; }
+.s.plain .art { background: linear-gradient(160deg, #3e4c59, #1f2933); display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 8px; }
+.tag { color: #fff; border: 1px solid rgba(255,255,255,.45); border-radius: 999px; padding: 2px 14px; font-size: .9em; }
+.f { position: absolute; left: 50%; top: 50%; width: 50%; display: block; transform: translate(-50%, -50%); }
+.f img { width: 100%; aspect-ratio: 2 / 3; object-fit: cover; display: block; border-radius: 3px; box-shadow: 0 5px 14px rgba(0,0,0,.5); }
+.f3-0 { transform: translate(-86%, -50%) rotate(-9deg); } .f3-1 { transform: translate(-14%, -50%) rotate(9deg); }
+.f3-2 { transform: translate(-50%, -52%); } .f1-0 { width: 52%; }
+.k, .s h3, .d { margin-left: 12px; margin-right: 12px; }
+.k { margin-top: 10px; margin-bottom: 0; color: var(--muted); font-size: .8em; }
+.s h3 { margin-top: 0; margin-bottom: 2px; font-size: 1em; line-height: 1.35; }
+.d { margin-top: 0; margin-bottom: 0; color: var(--muted); font-size: .82em; }
+.who { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; text-align: center; }
+.who svg { width: 54px; height: 54px; stroke: var(--accent); fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.who p { margin: 6px 0 0; font-size: .92em; }
+.go { text-align: center; padding: 56px 16px 64px; }
+.go a { display: inline-block; background: var(--accent); color: #fff; text-decoration: none; padding: 12px 34px; border-radius: 999px; font-size: 1.05em; }
+@media (prefers-color-scheme: dark) { .go a { color: #0f1722; } }
+footer { color: var(--muted); font-size: .85em; text-align: center; padding: 0 16px 32px; }
+@media (max-width: 720px) {
+  .hero { min-height: 500px; } .row img { height: 226px; }
+  .tri { grid-template-columns: 1fr; } .pic { height: 210px; }
+  .grid { grid-template-columns: repeat(2, 1fr); } .who { grid-template-columns: repeat(2, 1fr); gap: 20px 14px; }
+  .stairs li { margin-left: calc(var(--i) * 3%); }
+  .lead .nums { gap: 22px; }
+}
+</style>
+</head>
+<body>
+<a class="back" href="./">‹ 全部图书</a>
+<header class="hero">
+<div class="wall" aria-hidden="true"><div class="row"><img src="computer/images/cover.jpg" alt="" decoding="async"><img src="smartphone/images/cover.jpg" alt="" decoding="async"><img src="tablet/images/cover.jpg" alt="" decoding="async"><img src="smartwatch/images/cover.jpg" alt="" decoding="async"><img src="smartglasses/images/cover.jpg" alt="" decoding="async"><img src="chip/images/cover.jpg" alt="" decoding="async"><img src="ai-system/images/cover.jpg" alt="" decoding="async"><img src="llm/images/cover.jpg" alt="" decoding="async"><img src="ai-agent/images/cover.jpg" alt="" decoding="async"><img src="os/images/cover.jpg" alt="" decoding="async"><img src="computer/images/cover.jpg" alt="" decoding="async"><img src="smartphone/images/cover.jpg" alt="" decoding="async"><img src="tablet/images/cover.jpg" alt="" decoding="async"><img src="smartwatch/images/cover.jpg" alt="" decoding="async"><img src="smartglasses/images/cover.jpg" alt="" decoding="async"><img src="chip/images/cover.jpg" alt="" decoding="async"><img src="ai-system/images/cover.jpg" alt="" decoding="async"><img src="llm/images/cover.jpg" alt="" decoding="async"><img src="ai-agent/images/cover.jpg" alt="" decoding="async"><img src="os/images/cover.jpg" alt="" decoding="async"></div><div class="row rev"><img src="software/images/cover.jpg" alt="" decoding="async"><img src="search-engine/images/cover.jpg" alt="" decoding="async"><img src="recsys/images/cover.jpg" alt="" decoding="async"><img src="cybersecurity/images/cover.jpg" alt="" decoding="async"><img src="internet/images/cover.jpg" alt="" decoding="async"><img src="mobile/images/cover.jpg" alt="" decoding="async"><img src="wifi/images/cover.jpg" alt="" decoding="async"><img src="fiber/images/cover.jpg" alt="" decoding="async"><img src="datacenter/images/cover.jpg" alt="" decoding="async"><img src="hospital/images/cover.jpg" alt="" decoding="async"><img src="software/images/cover.jpg" alt="" decoding="async"><img src="search-engine/images/cover.jpg" alt="" decoding="async"><img src="recsys/images/cover.jpg" alt="" decoding="async"><img src="cybersecurity/images/cover.jpg" alt="" decoding="async"><img src="internet/images/cover.jpg" alt="" decoding="async"><img src="mobile/images/cover.jpg" alt="" decoding="async"><img src="wifi/images/cover.jpg" alt="" decoding="async"><img src="fiber/images/cover.jpg" alt="" decoding="async"><img src="datacenter/images/cover.jpg" alt="" decoding="async"><img src="hospital/images/cover.jpg" alt="" decoding="async"></div></div>
+<div class="lead">
+<p class="series">AI时代系统知识基础读物</p>
+<h1>读懂你身边的<br>真实系统</h1>
+<ul class="nums"><li><b>8</b><span>个系列</span></li><li><b>62</b><span>册规划</span></li><li><b>9</b><span>层读懂一个系统</span></li></ul>
+</div>
+</header>
+<main>
+<section>
+<h2>一本书，一件实物，一个 AI</h2>
+<p class="note">三样放在一起学。</p>
+<div class="tri">
+<div class="t"><div class="pic book"><img src="internet/images/cover.jpg" alt="" loading="lazy"><img src="llm/images/cover.jpg" alt="" loading="lazy"><img src="hospital/images/cover.jpg" alt="" loading="lazy"></div><div class="cap"><b>书</b><span>给你一副稳定的骨架</span></div></div>
+<div class="t"><div class="pic thing" role="img" aria-label="拆开的智能手表"></div><div class="cap"><b>实物</b><span>手边的东西就是教具</span></div></div>
+<div class="t"><div class="pic ai"><div class="msg q">挂号以后，医院里发生了什么？</div><div class="msg a dots">···</div><div class="msg q">为什么有那么多核对和规矩？</div></div><div class="cap"><b>AI</b><span>想深入，就接着问</span></div></div>
+</div>
+</section>
+<section>
+<h2>每一册，都走同样的九层</h2>
+<p class="note">读完一本，就会读下一本。</p>
+<ol class="stairs"><li style="--i:0"><b>1</b><strong>对象</strong><span>它是什么</span></li><li style="--i:1"><b>2</b><strong>结构</strong><span>由什么组成</span></li><li style="--i:2"><b>3</b><strong>功能</strong><span>每部分做什么</span></li><li style="--i:3"><b>4</b><strong>关系</strong><span>部分怎样连接</span></li><li style="--i:4"><b>5</b><strong>流动</strong><span>什么在里面流动</span></li><li style="--i:5"><b>6</b><strong>机制</strong><span>它怎样运行</span></li><li style="--i:6"><b>7</b><strong>关键技术</strong><span>靠什么做到</span></li><li style="--i:7"><b>8</b><strong>原理</strong><span>背后的道理</span></li><li style="--i:8"><b>9</b><strong>AI 协同</strong><span>接着问 AI</span></li></ol>
+</section>
+<section>
+<h2>八个系列，从手边到整个社会</h2>
+<p class="note">点封面开始读。</p>
+<div class="grid">
+<article class="s"><div class="art"><a href="smartphone/" class="f f3-0"><img src="smartphone/images/cover.jpg" alt="《智能手机》封面" loading="lazy" decoding="async"></a><a href="computer/" class="f f3-1"><img src="computer/images/cover.jpg" alt="《现代计算机》封面" loading="lazy" decoding="async"></a><a href="smartwatch/" class="f f3-2"><img src="smartwatch/images/cover.jpg" alt="《智能手表》封面" loading="lazy" decoding="async"></a></div><p class="k">第一系列 · 8 册</p><h3>个人数字与计算系统</h3><p class="d">计算机、手机、穿戴设备</p></article>
+<article class="s"><div class="art"><a href="chip/" class="f f1-0"><img src="chip/images/cover.jpg" alt="《芯片》封面" loading="lazy" decoding="async"></a></div><p class="k">第二系列 · 8 册</p><h3>芯片与电子系统</h3><p class="d">芯片、处理器、存储、传感器</p></article>
+<article class="s"><div class="art"><a href="llm/" class="f f3-0"><img src="llm/images/cover.jpg" alt="《大语言模型》封面" loading="lazy" decoding="async"></a><a href="ai-agent/" class="f f3-1"><img src="ai-agent/images/cover.jpg" alt="《AI智能体》封面" loading="lazy" decoding="async"></a><a href="os/" class="f f3-2"><img src="os/images/cover.jpg" alt="《操作系统》封面" loading="lazy" decoding="async"></a></div><p class="k">第三系列 · 8 册</p><h3>人工智能与软件系统</h3><p class="d">软件、AI、大模型、智能体</p></article>
+<article class="s"><div class="art"><a href="internet/" class="f f3-0"><img src="internet/images/cover.jpg" alt="《互联网》封面" loading="lazy" decoding="async"></a><a href="mobile/" class="f f3-1"><img src="mobile/images/cover.jpg" alt="《移动通信系统》封面" loading="lazy" decoding="async"></a><a href="datacenter/" class="f f3-2"><img src="datacenter/images/cover.jpg" alt="《数据中心》封面" loading="lazy" decoding="async"></a></div><p class="k">第四系列 · 7 册</p><h3>通信与信息基础设施</h3><p class="d">互联网、通信、数据中心、云</p></article>
+<article class="s plain"><div class="art"><span class="tag">机器人</span><span class="tag">无人机</span><span class="tag">自动驾驶</span></div><p class="k">第五系列 · 8 册</p><h3>智能机器与制造系统</h3><p class="d">机器人、无人机、现代工厂</p></article>
+<article class="s plain"><div class="art"><span class="tag">电动汽车</span><span class="tag">现代电网</span><span class="tag">高速铁路</span></div><p class="k">第六系列 · 8 册</p><h3>能源与交通系统</h3><p class="d">能源、汽车、铁路、飞机</p></article>
+<article class="s plain"><div class="art"><span class="tag">现代住宅</span><span class="tag">城市供水</span><span class="tag">城市交通</span></div><p class="k">第七系列 · 7 册</p><h3>现代城市与基础设施系统</h3><p class="d">水、电、交通、建筑、环境</p></article>
+<article class="s"><div class="art"><a href="hospital/" class="f f1-0"><img src="hospital/images/cover.jpg" alt="《现代医院》封面" loading="lazy" decoding="async"></a></div><p class="k">第八系列 · 8 册</p><h3>现代社会运行系统</h3><p class="d">医院、学校、银行、物流、治理</p></article>
+</div>
+</section>
+<section>
+<h2>写给谁</h2>
+<p class="note">不需要技术背景。</p>
+<div class="who">
+<div><svg viewBox="0 0 48 48"><path d="M6 12c6-3 12-3 18 1 6-4 12-4 18-1v26c-6-3-12-3-18 1-6-4-12-4-18-1z"/><path d="M24 13v26"/></svg><p>中学生与青少年</p></div>
+<div><svg viewBox="0 0 48 48"><path d="M4 19 24 9l20 10-20 10z"/><path d="M12 24v11c8 5 16 5 24 0V24"/></svg><p>大学生</p></div>
+<div><svg viewBox="0 0 48 48"><circle cx="17" cy="15" r="7"/><circle cx="34" cy="20" r="5"/><path d="M5 40c0-9 5-14 12-14s12 5 12 14"/><path d="M30 30c7-2 13 2 13 10"/></svg><p>教师与家长</p></div>
+<div><svg viewBox="0 0 48 48"><rect x="6" y="15" width="36" height="25" rx="3"/><path d="M17 15v-5h14v5"/><path d="M6 26h36"/></svg><p>管理者与技术人员</p></div>
+</div>
+</section>
+</main>
+<div class="go"><a href="./">去看全部图书</a></div>
+<footer>© 文军。保留所有权利。</footer>
+</body>
+</html>
