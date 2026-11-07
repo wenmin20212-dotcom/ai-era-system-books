@@ -22,7 +22,7 @@ jobs:
       - name: Build every book into public/<slug>
         run: |
           mkdir -p public
-          cp site/index.html public/
+          cp site/*.html public/
           for d in books/*/; do
             slug=$(basename "$d")
             cp theme/giscus.js theme/book.css "$d"
