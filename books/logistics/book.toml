@@ -1,0 +1,20 @@
+[book]
+title = "现代物流"
+authors = ["文军"]
+language = "zh-CN"
+src = "src"
+description = "从一个跨境包裹看懂物流行业"
+
+[output.html]
+default-theme = "light"
+preferred-dark-theme = "navy"
+site-url = "/logistics/"
+git-repository-url = "https://github.com/wenmin20212-dotcom/ai-era-system-books"
+additional-js = ["giscus.js"]
+additional-css = ["book.css"]
+
+[output.html.search]
+enable = true
+
+[output.html.print]
+enable = true
