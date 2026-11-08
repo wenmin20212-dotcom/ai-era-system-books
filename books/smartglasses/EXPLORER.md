@@ -1,10 +1,12 @@
 # 智能眼镜三维知识探索
 
+第一章现有独立交互展台 `src/explorer/chapter-one.html`：细化三维外观、三种教学组合、组件透视与分层观察、组件热点、生活场景以及网络状态示例。第一章书页和通用探索器的第一章入口均可进入；其他章节继续使用原来的探索器。其模型为原创教学几何，并非实物扫描或品牌产品拆解。
+
 本次试点只扩展 `books/smartglasses/`。其他书籍、语言版本、丛书首页、公共主题及 GitHub Actions 工作流均不修改。
 
 ## 读者使用
 
-- 本书关于页增加探索入口，各章节及小节通过本书专用 `explorer-link.js` 注入入口。
+- 本书关于页增加探索入口，各章节及小节通过本书专用 `explorer-link-v2.js` 注入入口。
 - 例如 `ch02/13.html` 对应 2.4，进入探索后自动选中第二章、显示眼镜及显示光学组件。
 - 从序章到第九章，各章原书配图随章节切换显示，可点击查看大图。
 - 探索页可切换章节、眼镜类型，旋转缩放、展开模型，选择组件，读取关联小节，再返回本书页面。
@@ -24,6 +26,8 @@
 
 ```sh
 python3 -m unittest discover -s books/smartglasses/tests -v
+# 可选：Node.js 22+ 验证第一章三种模型的几何与能力边界
+node --test books/smartglasses/tests/chapter-one-model.test.mjs
 python3 books/smartglasses/tools/build_preview.py
 python3 -m http.server 3473 --bind 127.0.0.1 --directory public
 ```

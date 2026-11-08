@@ -10,7 +10,7 @@ default-theme = "light"
 preferred-dark-theme = "navy"
 site-url = "/smartglasses/"
 git-repository-url = "https://github.com/wenmin20212-dotcom/ai-era-system-books"
-additional-js = ["giscus.js", "explorer-link.js"]
+additional-js = ["giscus.js", "explorer-link-v2.js"]
 additional-css = ["book.css"]
 
 [output.html.search]

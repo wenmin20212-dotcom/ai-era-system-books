@@ -76,6 +76,11 @@ function renderChapterFigures(){
   }
 }
 function setChapter(index,sectionId){
+  if(index===1){
+    const url=new URL('./chapter-one.html',location.href);
+    if(sectionId)url.searchParams.set('section',sectionId);
+    location.assign(url);return;
+  }
   chapter=book.chapters[index];
   $('chapter-title').textContent=chapter.title;
   renderChapterFigures();
@@ -147,6 +152,8 @@ try{
   const requestedSection=params.get('section');
   const owner=book.chapters.findIndex(c=>c.sections.some(s=>s.id===requestedSection));if(owner>=0)index=owner;
   setChapter(index,requestedSection);
-  const requestedComponent=params.get('component');
-  if(available(variant).some(c=>c.id===requestedComponent))select(requestedComponent);
+  if(index!==1){
+    const requestedComponent=params.get('component');
+    if(available(variant).some(c=>c.id===requestedComponent))select(requestedComponent);
+  }
 }catch(error){$('chapter-title').textContent='载入失败：'+error.message;}
