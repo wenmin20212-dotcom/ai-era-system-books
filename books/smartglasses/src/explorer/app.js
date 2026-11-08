@@ -57,9 +57,28 @@ function setVariant(value,desired=selected){
   variant=value;$('variant').value=value;viewer?.setVariant(value);
   select(available(value).some(c=>c.id===desired)?desired:'frame');
 }
+function renderChapterFigures(){
+  const panel=$('chapter-figures');
+  panel.replaceChildren();panel.hidden=!chapter.figures?.length;
+  if(panel.hidden)return;
+  const heading=document.createElement('h3');
+  heading.textContent=chapter.title.split('：')[0]+' · 知识配图';
+  panel.append(heading);
+  for(const figure of chapter.figures){
+    const container=document.createElement('figure');
+    const link=document.createElement('a');
+    link.href=sourceUrl(figure);link.target='_blank';link.rel='noopener';
+    link.setAttribute('aria-label','查看大图：'+figure.caption);
+    const image=document.createElement('img');
+    image.src=sourceUrl(figure);image.alt=figure.caption;image.loading='lazy';
+    const caption=document.createElement('figcaption');caption.textContent=figure.caption+' · 点击查看大图';
+    link.append(image);container.append(link,caption);panel.append(container);
+  }
+}
 function setChapter(index,sectionId){
   chapter=book.chapters[index];
   $('chapter-title').textContent=chapter.title;
+  renderChapterFigures();
   $('view-caption').textContent=chapter.title.split('：')[0];
   $('book-link').href=sourceUrl(chapter);
   [...$('chapters').children].forEach((b,i)=>{b.classList.toggle('active',i===index);b.setAttribute('aria-current',i===index?'page':'false');});
