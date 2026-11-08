@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>现代医院 · 知识树</title>
+<meta name="description" content="把《现代医院》长成一棵树：根是原理，干是医院，枝叶果实是它的组成、功能与技术。点击任何部分，回到书中对应的小节。">
+<style>
+:root {
+  --paper: #f7f2e8; --paper2: #efe6d4; --ink: #2b2620; --muted: #6f655a; --line: #e2d6c0;
+  --accent: #2f6b3c; --accent-soft: #e3eedc; --card: #fffdf8; --halo: #f7f2e8;
+  --sky1: #fbf7ee; --sky2: #eef3e6; --soil1: #8c6a4b; --soil2: #4f3a28; --soil-ink: #f4e7d2;
+  --bark1: #5a3d2a; --bark2: #8a6145; --bark3: #a57a58;
+  --leaf1: #3f7d45; --leaf2: #5e9b52; --leaf3: #86b86b; --leaf4: #a9cf86;
+  --canopy: #9cc583;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #13171c; --paper2: #1a2027; --ink: #ece6dc; --muted: #a59c90; --line: #2c343d;
+    --accent: #8fd08f; --accent-soft: #1f2d22; --card: #1a2027; --halo: #13171c;
+    --sky1: #141a21; --sky2: #18221d; --soil1: #4a3828; --soil2: #241a12; --soil-ink: #e9dcc6;
+    --canopy: #3e6b3f;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #13171c; --paper2: #1a2027; --ink: #ece6dc; --muted: #a59c90; --line: #2c343d;
+  --accent: #8fd08f; --accent-soft: #1f2d22; --card: #1a2027; --halo: #13171c;
+  --sky1: #141a21; --sky2: #18221d; --soil1: #4a3828; --soil2: #241a12; --soil-ink: #e9dcc6;
+  --canopy: #3e6b3f;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: var(--paper); color: var(--ink); font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", sans-serif; line-height: 1.6; }
+a { color: var(--accent); }
+header { max-width: 1400px; margin: 0 auto; padding: 22px 20px 6px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 18px; }
+header .back { font-size: .9em; text-decoration: none; color: var(--muted); }
+header .back:hover { color: var(--accent); }
+header h1 { font-family: "Songti SC", "STSong", "Noto Serif SC", serif; font-size: 1.9em; margin: 0; letter-spacing: .04em; flex-basis: 100%; }
+header h1 small { font-size: .5em; color: var(--muted); font-family: inherit; letter-spacing: 0; margin-left: .6em; font-weight: normal; }
+header p { margin: 0; color: var(--muted); font-size: .95em; flex-basis: 100%; }
+.wrap { max-width: 1400px; margin: 0 auto; padding: 10px 20px 40px; display: grid; grid-template-columns: 210px minmax(0, 1fr) 330px; gap: 18px; align-items: start; }
+nav { position: sticky; top: 12px; display: flex; flex-direction: column; gap: 4px; }
+nav button { all: unset; cursor: pointer; display: grid; grid-template-columns: 30px 1fr; align-items: center; padding: 7px 10px; border-radius: 10px; font-size: .92em; color: var(--ink); }
+nav button .ic { font-size: 1.15em; text-align: center; }
+nav button .nm small { display: block; color: var(--muted); font-size: .8em; line-height: 1.3; }
+nav button:hover { background: var(--paper2); }
+nav button[aria-pressed="true"] { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+nav button:focus-visible { outline: 2px solid var(--accent); }
+.stage { position: relative; background: linear-gradient(180deg, var(--sky1), var(--sky2) 70%); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; }
+.stage .scroller { overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; }
+.stage svg { display: block; width: 100%; height: auto; min-width: 640px; }
+.tools { position: absolute; right: 12px; top: 12px; display: flex; gap: 6px; z-index: 2; }
+.tools button { font: inherit; font-size: .82em; padding: 4px 11px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; opacity: .92; }
+.tools button:hover { border-color: var(--accent); color: var(--accent); }
+.hint { position: absolute; left: 14px; top: 12px; font-size: .8em; color: var(--muted); background: color-mix(in srgb, var(--card) 80%, transparent); padding: 3px 10px; border-radius: 999px; z-index: 2; }
+.tip { position: absolute; pointer-events: none; background: var(--ink); color: var(--paper); font-size: .82em; padding: 3px 9px; border-radius: 6px; white-space: nowrap; transform: translate(-50%, -130%); opacity: 0; transition: opacity .12s; z-index: 3; }
+.tip.show { opacity: .94; }
+aside { position: sticky; top: 12px; background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 18px 18px 16px; min-height: 280px; }
+aside .kick { font-size: .78em; color: var(--accent); letter-spacing: .08em; font-weight: 600; }
+aside h2 { font-family: "Songti SC", "STSong", "Noto Serif SC", serif; font-size: 1.28em; margin: 4px 0 8px; line-height: 1.35; }
+aside .meta { color: var(--muted); font-size: .9em; margin: 0 0 10px; }
+aside ul { margin: 6px 0 12px; padding-left: 1.1em; }
+aside li { margin: 3px 0; font-size: .93em; }
+aside .secs { list-style: none; padding: 0; }
+aside .secs button { all: unset; cursor: pointer; display: block; padding: 5px 8px; margin: 0 -8px; border-radius: 8px; font-size: .93em; }
+aside .secs button:hover { background: var(--paper2); }
+aside .secs button b { color: var(--accent); font-weight: 600; margin-right: .4em; }
+aside .secs a { display: block; padding: 5px 8px; margin: 0 -8px; border-radius: 8px; font-size: .93em; text-decoration: none; color: var(--ink); }
+aside .secs a:hover { background: var(--paper2); }
+aside .secs a b { color: var(--muted); font-weight: 600; margin-right: .4em; }
+.acts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.acts a, .acts button { font: inherit; font-size: .88em; padding: 6px 13px; border-radius: 999px; cursor: pointer; text-decoration: none; }
+.acts .pri { background: var(--accent); color: var(--paper); border: 1px solid var(--accent); }
+.acts .sec { background: none; color: var(--accent); border: 1px solid var(--accent); }
+.legend { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 10px; }
+.legend button { font: inherit; font-size: .82em; padding: 3px 10px 3px 8px; border-radius: 999px; border: 1px solid var(--line); background: none; color: var(--ink); cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+.legend button i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.legend button[aria-pressed="true"] { border-color: var(--ink); font-weight: 600; }
+footer { max-width: 1400px; margin: 0 auto; padding: 0 20px 30px; color: var(--muted); font-size: .82em; }
+
+/* SVG */
+svg text { font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", sans-serif; paint-order: stroke; stroke: var(--halo); stroke-width: 5px; stroke-linejoin: round; fill: var(--ink); pointer-events: none; }
+svg text.soil { fill: var(--soil-ink); stroke: rgba(40,28,18,.55); stroke-width: 4px; }
+svg text.b { font-weight: 600; }
+.part { cursor: pointer; transition: opacity .35s, filter .35s; }
+.part:focus { outline: none; }
+.part:focus-visible .hit { stroke: var(--accent); stroke-width: 2; stroke-dasharray: 4 3; fill: none; }
+.hit { fill: transparent; stroke: transparent; }
+svg.focus .part { opacity: .28; } svg.focus .decor { opacity: .55; }
+svg.focus .part.struct { opacity: .62; }
+svg.focus .part.on, svg.focus .part.sel { opacity: 1; }
+svg.focus .labels text { opacity: .32; transition: opacity .35s; }
+svg.focus .labels text.on { opacity: 1; }
+.part.sel { filter: url(#glow); }
+.flow { opacity: 0; transition: opacity .4s; pointer-events: none; }
+svg.flows .flow { opacity: .9; pointer-events: auto; }
+svg.flows .flow.dim { opacity: .12; }
+.flow path.f { fill: none; stroke-width: 6; stroke-linecap: round; stroke-dasharray: 4 10; animation: sap 1.6s linear infinite; }
+@keyframes sap { to { stroke-dashoffset: -30; } }
+.g { transform-box: view-box; }
+svg.grow .g { animation: pop .8s cubic-bezier(.2,.8,.3,1.15) both; animation-delay: var(--d, 0s); }
+svg.grow .g.rise { animation-name: rise; animation-timing-function: cubic-bezier(.3,.7,.3,1); }
+@keyframes pop { from { transform: scale(0); opacity: 0; } 30% { opacity: 1; } to { transform: scale(1); opacity: 1; } }
+@keyframes rise { from { transform: scaleY(0); opacity: 0; } 20% { opacity: 1; } to { transform: scaleY(1); opacity: 1; } }
+svg.grow .labels { animation: fade 1s both; animation-delay: 3.2s; }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+.bud { animation: glowb 2.6s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes glowb { 50% { transform: scale(1.12); } }
+@media (prefers-reduced-motion: reduce) {
+  svg.grow .g, svg.grow .labels, .bud, .flow path.f { animation: none !important; }
+}
+@media (max-width: 1080px) {
+  .wrap { grid-template-columns: minmax(0, 1fr); }
+  nav { position: static; flex-direction: row; overflow-x: auto; gap: 6px; padding-bottom: 4px; scrollbar-width: none; }
+  nav button { grid-template-columns: auto auto; gap: 4px; white-space: nowrap; padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px; }
+  nav button .nm small { display: none; }
+  aside { position: static; }
+}
+@media (max-width: 560px) {
+  header { padding: 16px 16px 4px; } .wrap { padding: 8px 16px 32px; }
+  header h1 { font-size: 1.55em; }
+  header h1 small { display: block; margin: 4px 0 0; font-size: .5em; }
+  .hint { display: none; }
+}
+</style>
+</head>
+<body>
+<header>
+  <a class="back" href="../">← 返回《现代医院》</a>
+  <h1>现代医院 · 知识树<small>AI时代系统知识基础读物 第 55 册</small></h1>
+  <p>把一本书长成一棵树：根是原理，干是医院，枝叶果实是它的组成、功能与技术。点任何部分，回到书中对应的小节。</p>
+</header>
+<div class="wrap">
+  <nav id="nav" aria-label="按章节查看"></nav>
+  <div class="stage">
+    <span class="hint">点树上的任何部分 · 左侧选章节</span>
+    <div class="tools"><button type="button" id="regrow">重新生长</button></div>
+    <div class="scroller" id="scroller"><svg id="tree" viewBox="0 -100 1200 1095" role="img" aria-label="现代医院知识树"></svg></div>
+    <div class="tip" id="tip"></div>
+  </div>
+  <aside id="panel" aria-live="polite"></aside>
+</div>
+<footer>树的形状是阅读示意，帮助记住各部分之间的关系；具体内容以书中原文为准。</footer>
+<script>
+const BOOK = [{"title": "序章 从一张挂号单说起：建立你的“系统透视眼”", "secs": [{"id": "0.1", "t": "为什么这本书与你读过的医院书都不同", "u": "../ch00/01.html", "x": "手机里显示“预约成功”，你走进医院，找到科室，在叫号屏前坐下。屏幕上的号码向前跳动，你可能会想：医生还没见到我，医院已经做了些什么？", "k": ["挂完号，事情才刚刚开始", "不只看科室，还看科室之间的连接", "把看得见的流程，接到看不见的原理", "用“书＋实物＋AI”继续观察"]}, {"id": "0.2", "t": "一张现代医院的认知骨架地图", "u": "../ch00/02.html", "x": "你拿着挂号单走进门诊楼。单上写着科室、就诊日期和序号；导诊图指向诊区，叫号屏提示你等候。过一会儿，医生可能开出检查申请，你又会见到检验单、报告和收费票据。", "k": ["从挂号单出发：对象、结构与功能", "从一间诊室走向全院：连接与流动", "可靠运转的背后：机制、技术与原理", "让地图回到手边：AI 协同与持续校正"]}, {"id": "0.3", "t": "纸面骨架与 AI 的动态共生：用 AI 学习现代医院", "u": "../ch00/03.html", "x": "你拿着手机上的预约挂号记录，站在医院大厅的导诊图前：屏幕显示要去某层候诊，导诊图上还有检验科、影像科、收费处和药房。它们都与你这次就诊有关吗？如果打开人工智能（AI）问一句“医院看病的流程是什么”，你可能立刻得到一张整齐的流程图。", "k": ["书负责骨架，实物负责落点", "AI 擅长展开关系，不擅长替现场定规矩", "从一个问题出发，走完一次核对循环", "给 AI 材料时，先守住隐私与责任边界"]}]}, {"title": "第一章 认识对象——这就是现代医院", "secs": [{"id": "1.1", "t": "一张挂号单背后：一次看病要经过多少环节", "u": "../ch01/04.html", "x": "手机上的预约记录显示“上午、呼吸内科、某诊区”。到了医院，叫号屏却还没有出现自己的号码。挂号已经成功，为什么还要等？因为挂号单解决的主要是“谁、在什么时段、到哪里接受接诊”的问题，并没有把一次看病的其余工作全部做完。", "k": ["从预约到接诊：挂号只是确定入口", "从问诊到检查：一次接诊可能分出几条支路", "从结果到离院：让医嘱真正落地", "把环节连起来：为什么医院不是几间诊室的拼接"]}, {"id": "1.2", "t": "医院是什么：把诊断、治疗与照护组织起来的系统", "u": "../ch01/05.html", "x": "一张挂号单上，通常能看到就诊人、科室、日期和号序。它像一张进入医院的“入口凭证”，却不能概括接下来会发生什么。一位虚构的、因咳嗽来就诊的中年人，可能在诊室完成问诊后离开，也可能需要检查、复诊，或因病情变化接受进一步照护。", "k": ["诊断、治疗、照护：三个相互连接的任务", "为什么说医院是“系统”，而不只是场所", "从挂号单看“组织”怎样发挥作用", "医院交付的不是一件产品，而是一段过程"]}, {"id": "1.3", "t": "医院的家族：综合医院、专科医院、基层医疗机构与医疗联合体", "u": "../ch01/06.html", "x": "挂号页面上，除了科室和医生，还常有一个更早的选择：去哪里看？一位虚构的中年人想为持续咳嗽预约就诊，手机上可能同时出现社区卫生服务中心、综合医院和呼吸专科医院。", "k": ["综合医院与专科医院：广度和深度不同", "基层医疗机构：不只是“大医院的前一站”", "医疗联合体：把机构之间的“交接”组织起来", "从一张挂号单看一张网络"]}, {"id": "1.4", "t": "从修道院病房到智慧医院：医院的几次演变", "u": "../ch01/07.html", "x": "一张手机上的预约挂号记录，通常写着日期、科室、医生和就诊地点。到了医院，叫号屏引导你候诊；医生开出检查申请后，信息又传到检验科或影像科。这些看似平常的步骤，并不是医院自古就有的样子。", "k": ["从提供庇护的病房，到集中照护的场所", "医学进步，让病房连接更多专业", "从个人就医安排，到城市中的公共系统", "“智慧”不是机器替医院作决定"]}, {"id": "1.5", "t": "本章骨架小结与实物探索任务", "u": "../ch01/08.html", "x": "翻出一张旧挂号单，或打开手机里的预约记录。上面的姓名、科室、日期和就诊时段，似乎只是在告诉你何时去哪里。", "k": ["从一张单据看见本章骨架", "实物探索：用公开线索画出医院", "让 AI 帮你展开，而不是替你下结论"]}]}, {"title": "第二章 拆解系统——医院由什么组成", "secs": [{"id": "2.1", "t": "临床科室：门诊、急诊、病房与重症监护", "u": "../ch02/09.html", "x": "手机上的预约记录写着“呼吸内科门诊，上午”。走进医院后，你可能先看导诊图，再到候诊区等待叫号。可是同一栋楼里，还有人从急诊入口进入，有人在病房接受持续照护，也有人需要在重症监护病房接受密切观察。", "k": ["门诊：围绕一次次就诊组织工作", "急诊：先判断紧迫程度，再安排资源", "病房：把一次诊察延长为连续照护", "重症监护：把观察与响应组织得更密集"]}, {"id": "2.2", "t": "医技科室：检验、影像、病理与药房", "u": "../ch02/10.html", "x": "一位来看咳嗽的中年人拿着挂号记录进入诊室。医生问诊后，可能开出检验或影像检查申请；如果需要用药，还会形成处方。患者看到的是手机上的缴费提示、检查地点和报告查询入口，背后却有多个部门接力。", "k": ["检验科：一管标本怎样变成报告", "影像科：把检查申请变成可解释的图像", "病理科：回答“这块组织是什么”", "药房：处方的终点，也是用药安全的一道关口"]}, {"id": "2.3", "t": "手术部：手术室、麻醉与消毒供应中心", "u": "../ch02/11.html", "x": "一张挂号单通常把人带进诊室，却很少让人看见手术部的全貌。假设一位虚构的患者经门诊评估后需要手术，家属在等候区看到的，可能只是患者被推入一道门、数小时后再被推出。", "k": ["手术室：一处需要协调的工作场所", "麻醉：贯穿手术前后的照护", "消毒供应中心：器械背后的循环系统", "核查与交接：把三条线接成一条"]}, {"id": "2.4", "t": "医疗设备与信息系统：从监护仪到 HIS、LIS、PACS", "u": "../ch02/12.html", "x": "一位虚构的住院患者戴着腕带，床旁监护仪显示心率等数值；护士站的电脑里有医嘱，检验科收到一份标本，医生稍后还能在屏幕上查看影像。它们看起来都是“医院里的机器”，做的事却不同：有的接触患者、产生测量结果，有的保存记录、传递任务。", "k": ["设备：把身体状况变成可观察的信息", "信息系统：各管一段，却要认同一个患者", "一张检查申请怎样跨过系统边界", "可靠运行，不只是“联网成功”"]}, {"id": "2.5", "t": "建筑与后勤：医用气体、供电、洁净空调与医疗废物", "u": "../ch02/13.html", "x": "挂号单引导你走向诊室，导诊图标出电梯和卫生间。你可能不会注意到天花板里的管道、墙上的气体接口，也不会知道叫号屏背后接着哪一路电源。可一旦这些设施停止工作，诊室、检验室和手术室即使人员齐备，也难以照常运转。", "k": ["从导诊图看建筑：把不同路线安排妥当", "医用气体与供电：藏在墙后的连续供应", "空调与空气：不是所有房间都要一样“洁净”", "废物离开诊室之后：分类、交接与可追溯"]}, {"id": "2.6", "t": "本章骨架小结与实物探索任务", "u": "../ch02/14.html", "x": "你拿着挂号单站在门诊大厅，最容易看到的是诊室、叫号屏和收费窗口。但一次诊疗还可能连接检验、影像、药房；如果进入住院或手术流程，又会涉及病房、手术部和许多不对公众开放的支持区域。", "k": ["把五类组成部分放回同一张图", "沿挂号单看一次“接力”", "实物探索：画出可见部分，也给不可见部分留位置", "让 AI 帮你检查结构，而不是猜测个人病情"]}]}, {"title": "第三章 功能解析——每个部分做什么", "secs": [{"id": "3.1", "t": "诊断：问诊、查体与检查检验", "u": "../ch03/15.html", "x": "一位来看咳嗽的中年人走进诊室，手里拿着挂号记录。医生先请他描述不适，接着询问症状出现的时间和变化，必要时进行查体，再决定是否需要检查。", "k": ["问诊：把个人经历变成临床信息", "查体：用现场观察检验初步判断", "检查检验：申请单怎样变成可用证据", "诊断是不断校准的过程"]}, {"id": "3.2", "t": "治疗：药物、手术与康复", "u": "../ch03/16.html", "x": "挂号单把人带进诊室；离开诊室时，手里可能多了一张处方、一份住院通知，或一张康复治疗申请单。它们指向不同的治疗方式，也把患者带入不同的协作链条。", "k": ["药物治疗：一张处方如何变成一次用药", "手术治疗：手术台前后是一条协作链", "康复治疗：把治疗目标带回日常生活", "治疗方式不同，组织原则相通"]}, {"id": "3.3", "t": "照护：护理、监护与营养", "u": "../ch03/17.html", "x": "一位虚构的住院患者完成检查，回到病房。床边有腕带、床头信息卡和一张记录出入量的表格。医生已经提出诊疗方案，但患者接下来能否安全地吃饭、下床、休息，身体变化能否及时被发现，还取决于持续的照护。", "k": ["护理：把医嘱和患者状态接起来", "监护：不是盯着一台机器", "营养：从一日三餐到治疗支持", "连续照护靠交接，而不是靠记忆"]}, {"id": "3.4", "t": "安全保障：感染防控、用药安全与急救", "u": "../ch03/18.html", "x": "一位虚构的住院患者准备接受输液。护士先看腕带，询问姓名，再核对药品标签和医嘱；操作前做手卫生。病床旁不远处，还能看到手消毒剂、分类投放的废物容器。若患者突然出现危急情况，病区又有呼叫、抢救和转运的安排。", "k": ["感染防控：阻断传播的路径", "用药安全：药袋到患者之间还有几道关", "急救：让分散的资源迅速汇合"]}, {"id": "3.5", "t": "管理与支付：人员、成本与医保结算", "u": "../ch03/19.html", "x": "你在诊室看完病，拿着医生开出的检查申请到窗口或手机上缴费。屏幕列出项目金额、医保支付金额和个人支付金额。对患者而言，这是一笔账；对医院而言，同一张单据还牵着另一组问题：谁来完成检查，设备能否使用，所需耗材是否备齐，费用怎样记录和结算？", "k": ["管理的起点：让合适的人在合适的时间到位", "一笔费用背后，是多种成本", "医保结算：患者账单与医院账本如何衔接", "三本账，服务同一件事"]}, {"id": "3.6", "t": "本章骨架小结与实物探索任务", "u": "../ch03/20.html", "x": "一张挂号单把你带到诊室；离开医院时，手里可能又多了检验报告、药袋或收费票据。这些纸张和手机记录并不是互不相干的凭证：它们分别留下了医院完成不同工作的痕迹。把它们按时间排开，就能回望本章的核心问题：医院除了“看病”，究竟还在做什么？", "k": ["从一条就诊路线，看见五种功能", "把“功能”与“看得见的物品”对上号", "实物探索：给一次就诊画“功能地图”", "让 AI 帮你检查，而不是替你判断"]}]}, {"title": "第四章 建立关系——各部分怎样连接", "secs": [{"id": "4.1", "t": "组织结构：院长、职能部门与临床科室", "u": "../ch04/21.html", "x": "挂号记录上写着“呼吸内科”，导诊图上却还列着检验科、放射科、药房和收费窗口。读者容易把医院理解为一排科室：进哪扇门，就由哪个科室负责。可如果检查设备需要维修、药品需要补充、门诊临时调整诊室，谁来协调？", "k": ["院长管理的不是每一项诊疗决定", "职能部门：让全院遵循共同规则", "临床科室：围绕患者承担专业责任", "看组织图，更要看连接处"]}, {"id": "4.2", "t": "团队协作：医生、护士、药师与技师怎样分工", "u": "../ch04/22.html", "x": "一张挂号单把你带到诊室，接下来的事却很少由一人独自完成。假设一位虚构的患者因持续咳嗽就诊：医生询问症状，护士测量生命体征；如果需要检查，检验或影像人员完成相应工作；如果开具药品，药师还会参与处方审核与调配。", "k": ["同一个问题，为什么要交给不同职业", "一张检查申请单怎样串起团队", "交接班和共同讨论：把个人判断接成连续照护"]}, {"id": "4.3", "t": "信息连接：电子病历与 HL7、FHIR、DICOM 等互联标准", "u": "../ch04/23.html", "x": "一位虚构的患者拿着挂号单走进诊室。医生在电脑上开出影像检查申请；患者到检查室登记，完成检查后，医生又在诊室屏幕上看到了报告和图像。看起来只是几次点击，背后却有多个系统在回答同一组问题：这是谁的检查？由谁申请？做了什么？结果应送到哪里？", "k": ["电子病历不是一份电子文档", "从“能发送”到“能理解”", "HL7、FHIR 与 DICOM 各管哪一段", "标准之外，还要有人守住连接处"]}, {"id": "4.4", "t": "院内与院外：分级诊疗、转诊、医联体与公共卫生", "u": "../ch04/24.html", "x": "一张挂号单通常只印着一家医院、一个科室和一个就诊时段。但对患者而言，这次就诊可能始于社区卫生服务中心，检查在另一家医院完成，病情稳定后又回到家附近继续照护。挂号单上的地址是一处入口，医疗服务的边界却不止于医院围墙。", "k": ["从一家医院，看到一张服务网络", "转诊：移动的不只是患者", "医联体：让分工变成可执行的协作", "公共卫生：医院与人群之间的接口"]}, {"id": "4.5", "t": "本章骨架小结与实物探索任务", "u": "../ch04/25.html", "x": "手机上的预约记录显示了医院、科室、日期和就诊时段，却不会告诉你：医生需要检查结果时，谁安排检查？报告怎样回到诊室？如果需要到另一家机构继续诊疗，哪些信息应当随患者走？第四章讨论的正是这些“连接”。", "k": ["四种连接，组成一张协作网", "用一次虚构就诊，看清“连接点”", "实物探索：从公开线索画出关系", "让 AI 帮你展开，而不是替你下结论"]}]}, {"title": "第五章 掌握流动——医院里流动着什么", "secs": [{"id": "5.1", "t": "患者流：从预约挂号到出院随访", "u": "../ch05/26.html", "x": "手机上的预约记录写着日期、科室和时段。到了医院，你可能先到自助机报到，再看叫号屏，进入诊室后又拿着检查申请单去另一个楼层。站在患者一侧，这是一次次“往哪里走”；站在医院一侧，这是需要识别、分流、衔接和记录的患者流。", "k": ["一张挂号记录怎样变成一条路径", "门诊、急诊和住院不是同一条队伍", "为什么人走到了，流程还没有走完", "出院不是患者流的终点"]}, {"id": "5.2", "t": "信息流：医嘱、检查申请、报告与病历", "u": "../ch05/27.html", "x": "挂完号后，手机上出现了候诊序号；看诊结束，又多了一张检查申请单。过一会儿，页面显示“报告已出”，医生也能在工作界面看到结果。这些信息并不是从一部手机直接“跳”到另一部手机：它们经过登记、发送、接收、确认和保存，牵动着不同岗位的工作。", "k": ["从一次诊疗决定到一条医嘱", "检查做完，为什么还要等报告", "病历不是报告的文件夹", "一条信息，怎样形成闭环"]}, {"id": "5.3", "t": "物流：药品、耗材、标本与血液", "u": "../ch05/28.html", "x": "看病时，你可能会拿到药袋，也可能见过护士把贴有条码的采血管送往检验科。它们看似只是物品在移动，背后却有一套要求：正确的东西，在合适的条件下，按时到达正确的地点，并且能够追溯。 医院物流与普通快递不同。", "k": ["药品与耗材：从库房到使用现场", "标本：运送的是物品，也是待回答的问题", "血液：需要严密交接的特殊物资", "四条物流线，共用一张“追踪网”"]}, {"id": "5.4", "t": "资金流：收费、医保与成本核算", "u": "../ch05/29.html", "x": "一位虚构的患者做完检查，手机上出现一张缴费单：检查项目、金额、医保支付、自付金额，排列得清清楚楚。对患者来说，这似乎是一次付款；对医院来说，这笔钱还连着医生开具的申请、收费规则、医保结算、财务对账和科室成本。", "k": ["一张缴费单，连接了哪些环节", "医保结算：谁付钱，取决于哪些规则", "收入不等于结余：医院怎样看成本", "让账目能追溯，而不是让账目指挥诊疗"]}, {"id": "5.5", "t": "人员与时间：排班、交接班与就诊高峰", "u": "../ch05/30.html", "x": "上午，叫号屏上的号码接连跳动。你拿着挂号记录等待时，可能会想：诊室里有医生，为什么还要等？因为一次就诊占用的不是一段孤立的“医生时间”。接诊可能需要护士协助，检查要有技师操作和医生出具报告，取药要经过药师审核与调配。", "k": ["排班：把岗位放进时间表", "交接班：让工作跨过人员更替", "就诊高峰：排队不只取决于平均人数", "时间表背后，是协作边界"]}, {"id": "5.6", "t": "本章骨架小结与实物探索任务", "u": "../ch05/31.html", "x": "手机上显示“已预约”，叫号屏显示“请候诊”，检查完成后又出现“报告已出”。从读者的角度看，这些是一次就诊中的几个画面；从医院的角度看，每个画面背后都有不同的东西在流动。", "k": ["把五条流放在同一张图上", "为什么“已经到了”不等于“已经完成”", "实物探索：画一张不含隐私的流动图", "让 AI 帮你查漏，而不是替你下结论"]}]}, {"title": "第六章 理解机制——医院怎样保证质量与安全", "secs": [{"id": "6.1", "t": "分诊与优先级：急诊预检分诊与绿色通道", "u": "../ch06/32.html", "x": "你拿着挂号记录走进医院，门诊叫号屏上的号码通常依次向前；到了急诊，顺序却可能不同。一位比你晚到的人，被工作人员直接带进抢救区域。这不一定是漏叫了号，而可能是急诊正在执行另一套排序规则：先处理等待可能带来更大危险的人。", "k": ["叫号屏为什么不总按先来后到", "分诊台做的不是一次简单排队", "“绿色通道”连接了哪些环节", "优先级如何兼顾效率与公平"]}, {"id": "6.2", "t": "核对制度：身份识别、查对与手术安全核查", "u": "../ch06/33.html", "x": "一位虚构的住院患者刚戴上腕带，护士送来一份检查申请，先看腕带，再与申请信息核对，并请患者说出自己的姓名。患者可能觉得：“刚才不是已经问过了吗？”但在医院里，同一天可能有同名者；一项检查、一袋药、一份标本又会经过不同人的手。", "k": ["从“认得这个人”到“匹配这件事”", "一张医嘱怎样经过多道查对", "手术室里，为什么还要一起核查", "把核对放在交接点，而不是寄托于记忆"]}, {"id": "6.3", "t": "感染防控：手卫生、隔离与消毒灭菌", "u": "../ch06/34.html", "x": "门诊走廊里，一位虚构的患者拿着挂号记录等候叫号。他可能注意到诊室门口的手消毒剂、工作人员佩戴的口罩，却未必看见检查床何时被擦拭、可重复使用的器械怎样送去处理。这些动作有一个共同目的：尽量阻断病原体在患者、医护人员、物品和环境之间传播。", "k": ["手卫生：最常用的阻断动作", "隔离：按传播途径调整接触方式", "消毒灭菌：同是“处理干净”，要求并不一样", "从单个动作到全院闭环"]}, {"id": "6.4", "t": "质量管理：临床指南、临床路径与质量指标", "u": "../ch06/35.html", "x": "一位虚构的患者做完检查，拿着报告回到诊室。医生要结合病史、检查结果和患者意愿，决定下一步；护士要确认相关照护是否落实；医院则希望知道：同类患者在不同时间、不同科室接受服务时，质量能否保持稳定。", "k": ["临床指南：把研究证据带到诊室", "临床路径：让跨岗位工作接得上", "质量指标：给复杂工作装上仪表盘", "从发现问题到改进流程"]}, {"id": "6.5", "t": "应急与韧性：停电停网、大规模伤员与传染病暴发", "u": "../ch06/36.html", "x": "挂号单上的诊室号、叫号屏上的队列、手机里的检查结果，都默认医院的电力、网络和人员安排在正常运转。如果叫号屏突然熄灭，护士改用纸笔记录，读者看到的是一次服务中断；从医院内部看，则是整个系统开始切换工作方式：哪些设备必须持续供电？", "k": ["停电停网：先保关键服务，再恢复正常流程", "大规模伤员：让有限资源先到最需要的地方", "传染病暴发：改变人和信息的通行路线", "从预案到演练：韧性要靠日常积累"]}, {"id": "6.6", "t": "本章骨架小结与实物探索任务", "u": "../ch06/37.html", "x": "你在门诊等候时，叫号屏上的号码通常按一定顺序前进；走到急诊，却可能看到后到的人先进入诊室。拿到检验单时，工作人员会再次核对姓名等信息；走进病区，门口可能贴有手卫生提示。", "k": ["从一块叫号屏，看见五道安全机制", "把规则放回就诊过程", "实物探索：用公开线索画一张机制图", "让 AI 帮你追问，而不让它替你判断"]}]}, {"title": "第七章 关键技术——支撑现代医院的技术", "secs": [{"id": "7.1", "t": "医学影像：X 线、CT、磁共振与超声", "u": "../ch07/38.html", "x": "一位虚构的患者看完门诊，手机上多了一张影像检查申请单。单上除了检查名称，还有部位、预约时间和注意事项。他走进影像科，看到登记窗口、候诊区和不同的检查室。", "k": ["四种影像，回答不同的问题", "从申请单到报告：谁在接力", "看不见的连接：图像怎样回到诊室", "设备先进之外，还有容量与协作"]}, {"id": "7.2", "t": "检验自动化：流水线、即时检验与条码追踪", "u": "../ch07/39.html", "x": "一位虚构的门诊患者拿着检验申请单来到采血窗口。护士核对身份、采集标本，把贴有条码的采血管送往检验科。过一段时间，患者在手机上看到了报告。", "k": ["从采血管到报告：自动化覆盖哪一段", "流水线：让重复动作稳定衔接", "即时检验：把检测移到患者附近", "条码追踪：看得见去向，不等于保证一切"]}, {"id": "7.3", "t": "电子病历与临床决策支持", "u": "../ch07/40.html", "x": "一位虚构的患者在门诊看完病，手机上出现了检查申请；到了检查科室，工作人员能够调出申请信息；报告完成后，接诊医生又能在工作界面查看结果。这些信息并不是沿着一条“万能网线”自动传递的。它们要先被记录、确认，再由不同系统按约定交换。", "k": ["电子病历不只是把纸写进电脑", "临床决策支持：在关键节点递上一张提示卡", "提醒为何不能越多越好", "从“有数据”到“用得稳”"]}, {"id": "7.4", "t": "互联网医院与远程医疗", "u": "../ch07/41.html", "x": "你在手机上点开一家医院的就诊页面，看到“预约挂号”“在线复诊”“报告查询”三个入口。它们都不要求你立刻走进医院，却不是同一件事：预约挂号只是把到院时间登记进系统；报告查询是在查看已有结果；在线复诊才可能形成一次由医生承担责任的诊疗活动。", "k": ["从手机入口到一次诊疗活动", "远程医疗：连接的也可能是两家医院", "屏幕背后，医院还要接好哪些环节", "延伸的是可及性，不是医院的全部能力"]}, {"id": "7.5", "t": "医疗 AI：影像辅助诊断、病历辅助书写与它的边界", "u": "../ch07/42.html", "x": "一位虚构的患者做完胸部影像检查，等待报告。检查室外的屏幕只显示检查进度；屏幕背后，图像可能已传到医学影像存档与通信系统（PACS），供放射科医生调阅。有些医院还会让医疗人工智能（AI）先分析图像，标出值得留意的区域。", "k": ["影像辅助：标记线索，不等于给出诊断", "病历辅助：节省整理时间，保留事实核对", "能否使用：看任务、证据和工作流程", "边界在哪里：让责任链始终清楚"]}, {"id": "7.6", "t": "本章骨架小结与实物探索任务", "u": "../ch07/43.html", "x": "挂号之后，你可能在手机上收到一张检查申请单：上面有姓名、项目、预约地点和时间。到检查区后，工作人员核对身份；检查完成，报告又回到医生面前。读者看得见的是几张单据和几个页面，看不见的是设备、人员和信息系统之间的一次次交接。", "k": ["五类技术，接在同一条工作链上", "看技术，也看它与人的接口", "实物探索：沿着可见的线索画图", "把观察交给 AI 展开，而不是交出判断"]}]}, {"title": "第八章 原理溯源——为什么能够这样工作", "secs": [{"id": "8.1", "t": "循证医学：用证据做决定", "u": "../ch08/44.html", "x": "一位来看咳嗽的中年人拿着挂号记录走进诊室。他可能以为，医生只需听完症状，就能凭经验给出答案。实际的诊疗决策往往要多走几步：医生了解病情和既往情况，判断还缺少什么信息，再结合检查结果、临床研究和患者的具体处境作出决定。", "k": ["三种信息，缺一不可", "从一项研究到一条建议", "证据怎样进入医院的日常运转", "在确定与不确定之间作决定"]}, {"id": "8.2", "t": "排队论与容量：为什么看病总要排队", "u": "../ch08/45.html", "x": "你拿着挂号单来到诊室门口，叫号屏显示前面还有三人。过了一会儿，号码似乎没有变化：有人进去后需要较长时间问诊；医生又接到病房的电话。你可能会想：“预约了时间，为什么还要等？", "k": ["叫号屏上的“前面还有三人”", "人数相同，等待也可能不同", "为什么越忙，队伍越难消退", "找瓶颈，而不是只盯着诊室门"]}, {"id": "8.3", "t": "系统安全与人因工程：瑞士奶酪模型", "u": "../ch08/46.html", "x": "一位虚构的患者拿着挂号记录来到诊室。医生开出检验申请，护士或采血人员核对身份、采集标本并贴上标签；实验室接收标本，仪器生成结果，工作人员审核后发出报告。患者看到的也许只是一张检验单，背后却有许多人和系统接力。", "k": ["一张检验单，为什么要核对好几次", "奶酪片上的孔：防线为何需要叠加", "人因工程：让正确操作更容易做到", "从“找责任人”走向“改进系统”"]}, {"id": "8.4", "t": "流行病学：疾病怎样传播、怎样被阻断", "u": "../ch08/47.html", "x": "一张挂号单把人带进医院；在呼吸道传染病较多的季节，门诊入口处的提示牌、分诊台的询问和候诊区的座位安排，又让人看到医院的另一项工作：不仅要照顾眼前这位患者，还要尽量减少疾病在人群中传播的机会。要理解这些安排，可以借助流行病学的眼光。", "k": ["从“这个人怎么了”到“哪些人受到影响”", "传播链：风险怎样跨过一道道关口", "阻断传播：为什么需要多层措施", "监测把一次发现变成持续改进"]}, {"id": "8.5", "t": "卫生经济学：成本、效果与支付方式", "u": "../ch08/48.html", "x": "一位虚构的患者看完门诊，手机上出现一张收费票据：有检查费、药费，也有医保支付和个人支付金额。票据能回答“这次我付了多少”，却不能直接回答另外两个问题：医院为这次服务投入了多少资源？同样一笔钱，用在不同医疗服务上，能带来什么健康效果？", "k": ["一张票据，几种不同的“成本”", "不只看花费，还要看获得了什么", "支付方式怎样改变医院的工作", "把三本账合在一起看"]}, {"id": "8.6", "t": "本章骨架小结与实物探索任务", "u": "../ch08/49.html", "x": "候诊区的叫号屏上，号码正在向前跳。你手里有一张挂号单，手机里还有预约记录：为什么有人等得久一些？为什么医生可能参考指南，却仍要了解眼前这个人的具体情况？为什么进诊室前要核对身份，做检查前又要核对一次？", "k": ["五种原理，各回答一种问题", "把原理放回一张挂号单", "实物探索：只看公开、可见的部分", "让 AI 帮你提问，而不是替你判断"]}]}, {"title": "第九章 AI 协同扩展——让 AI 继续向下展开", "secs": [{"id": "9.1", "t": "用 AI 读懂医院：看懂就诊指南、检验单上的项目与医院公开信息", "u": "../ch09/50.html", "x": "手机里有一条预约记录：某医院、某科室、某时段。出门前，你打开医院发布的就诊指南，却在“报到”“候诊”“检查预约”之间有些拿不准；回家后，又在检验单上看到几个陌生项目。", "k": ["从就诊指南里，读出一条流程", "读懂检验项目，不等于解释个人结果", "查医院公开信息，先辨认“谁发布、何时发布”", "让 AI 做“标注员”，而不是“最终裁判”"]}, {"id": "9.2", "t": "动手实验：画一张你常去医院的就诊流程图", "u": "../ch09/51.html", "x": "手机里的一条预约挂号记录，通常只写着医院、科室、日期和时段。到了医院，你却还要找楼、确认报到方式、看叫号屏；见到医生后，也可能去缴费、检查，再回诊室。这些步骤分散在不同地点和屏幕上。", "k": ["先确定边界：画哪一次、从哪里到哪里", "再画三条线：人走到哪儿，信息和物品跟到哪儿", "给箭头加上判断：看见等待与例外", "请 AI 帮你检查图，而不是替你编图"]}, {"id": "9.3", "t": "三阶提问阶梯：从中学生到医院管理者", "u": "../ch09/52.html", "x": "手机里的一条预约挂号记录，通常只告诉你科室、时间和地点。可一旦追问“挂号之后，医院里谁先知道我要来”，问题就从屏幕伸进了医院内部：叫号系统要安排顺序，接诊人员要核对信息，医生可能开出检查申请，检验或影像科室接收任务，报告再回到医生手中。", "k": ["第一阶：看见了什么，下一站在哪里", "第二阶：谁把信息交给谁，哪里需要核对", "第三阶：资源有限时，怎样比较方案", "同一架阶梯，始终保留核实这一步"]}, {"id": "9.4", "t": "本章骨架小结与实物探索任务", "u": "../ch09/53.html", "x": "打开手机里的预约挂号记录，除了科室、日期和时段，你还能从中看出什么？它是你与医院系统的一处连接点：预约信息要进入叫号流程，接诊后可能产生检查申请、报告和费用记录。", "k": ["本章骨架：书定框架，实物校准，AI 展开", "实物探索：给一张挂号记录画出边界", "把问题交给 AI，也把核实留给自己", "从一张纸回到整个系统"]}]}];
+(function () {
+const NS = "http://www.w3.org/2000/svg";
+const svg = document.getElementById("tree");
+const SEC = {}; BOOK.forEach((c, ci) => c.secs.forEach(s => { s.ch = ci; SEC[s.id] = s; }));
+const CH = [
+  { ic: "🪧", part: "路牌", desc: "从一张挂号单出发，先认路：这本书怎样读，现代医院的骨架地图长什么样。" },
+  { ic: "🪵", part: "树干", desc: "医院是什么、有哪些类型、怎样一步步演变而来——整棵树都长在这根主干上。" },
+  { ic: "🌿", part: "大枝", desc: "医院由五大部分组成：临床、医技、手术、设备与信息、建筑与后勤，各是一根大枝。" },
+  { ic: "🍃", part: "叶", desc: "诊断、治疗、照护、安全保障、管理与支付——医院真正“干活”的功能，长在对应的枝上。" },
+  { ic: "🌱", part: "藤", desc: "组织结构、团队协作、信息标准、院内院外，像藤一样把各根枝缠在一起。" },
+  { ic: "💧", part: "树液", desc: "患者、信息、物品、资金、人员在枝干里流动。点下面的颜色，看每一种流经哪些枝。" },
+  { ic: "🛡️", part: "护栏", desc: "分诊、核对、感控、质控、应急，一道道护住整棵树，单独一道挡不住所有风险。" },
+  { ic: "🍎", part: "果实", desc: "影像、检验自动化、电子病历、远程医疗、医疗 AI——技术结出的果实，挂在各自的枝上。" },
+  { ic: "🌳", part: "树根", desc: "循证医学、排队论、系统安全、流行病学、卫生经济学，埋在地下看不见，却支撑着一切。" },
+  { ic: "✨", part: "新芽", desc: "带着这棵树去问 AI、去现场观察，让知识继续向上长。" }
+];
+const SHORT = {
+  "1.1": "挂号单背后", "1.2": "医院是什么", "1.3": "医院的家族", "1.4": "医院的演变",
+  "2.1": "临床科室", "2.2": "医技科室", "2.3": "手术部", "2.4": "设备与信息", "2.5": "建筑与后勤",
+  "3.1": "诊断", "3.2": "治疗", "3.3": "照护", "3.4": "安全保障", "3.5": "管理与支付",
+  "4.1": "组织结构", "4.2": "团队协作", "4.3": "信息连接", "4.4": "院内与院外",
+  "5.1": "患者流", "5.2": "信息流", "5.3": "物流", "5.4": "资金流", "5.5": "人员与时间",
+  "6.1": "分诊", "6.2": "核对", "6.3": "感控", "6.4": "质控", "6.5": "应急",
+  "7.1": "医学影像", "7.2": "检验自动化", "7.3": "电子病历", "7.4": "远程医疗", "7.5": "医疗 AI",
+  "8.1": "循证医学", "8.2": "排队论", "8.3": "瑞士奶酪", "8.4": "流行病学", "8.5": "卫生经济学",
+  "9.1": "读懂医院", "9.2": "画流程图", "9.3": "三阶提问"
+};
+const FLOWC = { "5.1": "#3b82c4", "5.2": "#8b5cf6", "5.3": "#e07b28", "5.4": "#c99a12", "5.5": "#159e8f" };
+
+// ---------- helpers ----------
+let seed = 7; const rnd = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
+const el = (tag, at, parent) => { const e = document.createElementNS(NS, tag); for (const k in at) e.setAttribute(k, at[k]); (parent || svg).appendChild(e); return e; };
+const bez = (s, t) => { const u = 1 - t; return [0, 1].map(i => u*u*u*s[0][i] + 3*u*u*t*s[1][i] + 3*u*t*t*s[2][i] + t*t*t*s[3][i]); };
+const dbez = (s, t) => { const u = 1 - t; return [0, 1].map(i => 3*u*u*(s[1][i]-s[0][i]) + 6*u*t*(s[2][i]-s[1][i]) + 3*t*t*(s[3][i]-s[2][i])); };
+const norm = v => { const l = Math.hypot(v[0], v[1]) || 1; return [v[0]/l, v[1]/l]; };
+function taper(s, w0, w1, n = 30) {
+  const L = [], R = [];
+  for (let i = 0; i <= n; i++) {
+    const t = i / n, p = bez(s, t), d = norm(dbez(s, t)), w = (w0 + (w1 - w0) * Math.pow(t, .85)) / 2;
+    L.push([p[0] - d[1]*w, p[1] + d[0]*w]); R.push([p[0] + d[1]*w, p[1] - d[0]*w]);
+  }
+  const f = p => p[0].toFixed(1) + " " + p[1].toFixed(1);
+  return "M" + L.map(f).join("L") + "L" + R.reverse().map(f).join("L") + "Z";
+}
+const cubicD = s => `M${s[0]}C${s[1]} ${s[2]} ${s[3]}`;
+const leafD = (L, W) => `M0 0Q${L*.45} ${-W} ${L} 0Q${L*.45} ${W} 0 0Z`;
+function leaf(x, y, ang, L, W, fill, parent) {
+  const g = el("g", { transform: `translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${ang.toFixed(1)})` }, parent);
+  el("path", { d: leafD(L, W), fill }, g);
+  el("path", { d: `M${L*.08} 0L${L*.85} 0`, stroke: "rgba(255,255,255,.28)", "stroke-width": 1, fill: "none" }, g);
+  return g;
+}
+const parts = {}; const labelEls = [];
+function part(id, ch, cls, origin, delay, parent) {
+  const g = el("g", { class: "part g " + (cls || ""), tabindex: "0", role: "button", "data-id": id, "data-ch": ch }, parent);
+  g.style.transformOrigin = `${origin[0]}px ${origin[1]}px`; g.style.setProperty("--d", delay + "s");
+  (parts[id] = parts[id] || []).push(g); return g;
+}
+function label(x, y, txt, ch, id, opt = {}) {
+  const t = el("text", { x, y, "font-size": opt.size || 17, "text-anchor": opt.anchor || "middle", class: (opt.cls || "") + (opt.bold ? " b" : "") }, LBL);
+  t.textContent = txt; t.dataset.ch = ch; if (id) t.dataset.id = id; labelEls.push(t); return t;
+}
+
+// ---------- defs ----------
+const defs = el("defs", {});
+defs.innerHTML = `
+<linearGradient id="bark" x1="0" x2="1"><stop offset="0" stop-color="var(--bark1)"/><stop offset=".55" stop-color="var(--bark2)"/><stop offset="1" stop-color="var(--bark1)"/></linearGradient>
+<linearGradient id="soil" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--soil1)"/><stop offset="1" stop-color="var(--soil2)"/></linearGradient>
+<radialGradient id="canopyG"><stop offset="0" stop-color="var(--canopy)" stop-opacity=".55"/><stop offset="1" stop-color="var(--canopy)" stop-opacity="0"/></radialGradient>
+<radialGradient id="sun"><stop offset="0" stop-color="#ffe7a8" stop-opacity=".75"/><stop offset="1" stop-color="#ffe7a8" stop-opacity="0"/></radialGradient>
+<radialGradient id="fruitR" cx=".35" cy=".3"><stop offset="0" stop-color="#ffb08f"/><stop offset=".55" stop-color="#e2563d"/><stop offset="1" stop-color="#a8321f"/></radialGradient>
+<radialGradient id="fruitO" cx=".35" cy=".3"><stop offset="0" stop-color="#ffe0a0"/><stop offset=".55" stop-color="#ef9f2c"/><stop offset="1" stop-color="#b8661a"/></radialGradient>
+<radialGradient id="budG"><stop offset="0" stop-color="#fffbd0"/><stop offset=".5" stop-color="#c8ec7a"/><stop offset="1" stop-color="#c8ec7a" stop-opacity="0"/></radialGradient>
+<linearGradient id="wood" x1="0" x2="1"><stop offset="0" stop-color="#b98b5e"/><stop offset="1" stop-color="#d9b07f"/></linearGradient>
+<filter id="glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur in="SourceAlpha" stdDeviation="5" result="b"/><feFlood flood-color="#ffd85a" flood-opacity=".95"/><feComposite in2="b" operator="in" result="g"/><feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<filter id="soft"><feGaussianBlur stdDeviation="18"/></filter>`;
+
+// ---------- layers ----------
+const BG = el("g", {}), DEC = el("g", { class: "decor" }), TREE = el("g", {}), FLOW = el("g", {}), FG = el("g", {}), LBL = el("g", { class: "labels" });
+el("circle", { cx: 1040, cy: 40, r: 170, fill: "url(#sun)" }, BG);
+const G = 720; // ground line
+
+// ---------- geometry ----------
+const TRUNK = [[600, G + 8], [588, 610], [614, 490], [600, 372]];
+const BR = {
+  "2.1": [[586, 505], [500, 470], [385, 425], [228, 352]],
+  "2.2": [[592, 448], [532, 360], [438, 250], [328, 148]],
+  "2.3": [[600, 386], [584, 280], [622, 170], [600, 62]],
+  "2.4": [[608, 448], [672, 360], [770, 250], [878, 148]],
+  "2.5": [[614, 505], [702, 470], [822, 425], [978, 352]]
+};
+const at = (id, t) => bez(BR[id], t);
+const nrm = (id, t, side) => { const d = norm(dbez(BR[id], t)); return side > 0 ? [-d[1], d[0]] : [d[1], -d[0]]; };
+
+// canopy glow
+[[600, 230, 470, 250], [380, 300, 230, 160], [820, 300, 230, 160], [600, 110, 260, 150]].forEach(c => el("ellipse", { cx: c[0], cy: c[1], rx: c[2], ry: c[3], fill: "url(#canopyG)" }, DEC));
+
+// soil & grass
+el("path", { d: `M-10 ${G}Q300 ${G-10} 600 ${G}T1210 ${G}V1010H-10Z`, fill: "url(#soil)" }, BG);
+for (let i = 0; i < 26; i++) { const y = G + 30 + rnd() * 250, x = rnd() * 1200; el("ellipse", { cx: x, cy: y, rx: 3 + rnd() * 6, ry: 2 + rnd() * 3, fill: "rgba(255,240,220,.08)" }, BG); }
+let grass = ""; for (let x = -10; x < 1210; x += 7) { const h = 6 + rnd() * 10; grass += `M${x} ${G + 2}q${2 - rnd()*4} ${-h} ${3 + rnd()*3} ${-h - 2}`; }
+el("path", { d: grass, stroke: "var(--leaf2)", "stroke-width": 2, fill: "none", "stroke-linecap": "round", opacity: .7 }, BG);
+
+// ---------- 第八章 树根 ----------
+const ROOTS = { "8.1": [292, 870], "8.2": [440, 935], "8.3": [612, 955], "8.4": [778, 932], "8.5": [915, 866] };
+Object.entries(ROOTS).forEach(([id, p], i) => {
+  const g = part(id, 8, "", [600, G], .1 + i * .08, TREE);
+  const s = [[600 + (p[0] - 600) * .08, G + 4], [600 + (p[0] - 600) * .3, G + 70], [p[0] - (p[0] - 600) * .35, p[1] - 40], p];
+  el("path", { d: taper(s, 34, 3), fill: "url(#bark)" }, g);
+  for (let k = 0; k < 3; k++) { const t = .35 + k * .2, q = bez(s, t), sd = k % 2 ? 1 : -1; const e = [q[0] + sd * (30 + rnd() * 30), q[1] + 30 + rnd() * 25];
+    el("path", { d: taper([q, [q[0] + sd * 10, q[1] + 15], [e[0] - sd * 8, e[1] - 10], e], 6, 1), fill: "var(--bark1)", opacity: .85 }, g); }
+  el("path", { d: cubicD(s), class: "hit", "stroke-width": 26 }, g);
+  label(p[0], p[1] + 26, SHORT[id], 8, id, { cls: "soil", bold: true });
+});
+
+// ---------- 小树（院外） ----------
+const SAP = el("g", { class: "part g", "data-ch": 4 }, TREE); SAP.style.transformOrigin = `1110px ${G}px`; SAP.style.setProperty("--d", "2.1s");
+(parts["4.4"] = parts["4.4"] || []).push(SAP); SAP.setAttribute("data-id", "4.4"); SAP.setAttribute("tabindex", "0"); SAP.setAttribute("role", "button");
+el("path", { d: taper([[1110, G + 4], [1106, 680], [1114, 640], [1110, 600]], 16, 6), fill: "url(#bark)" }, SAP);
+for (let i = 0; i < 16; i++) { const a = rnd() * Math.PI * 2, r = 12 + rnd() * 34; leaf(1110 + Math.cos(a) * r, 590 + Math.sin(a) * r * .8, rnd() * 360, 16 + rnd() * 6, 6, [ "var(--leaf2)", "var(--leaf3)", "var(--leaf1)"][i % 3], SAP); }
+label(1110, G + 26, "基层机构", 4, "4.4", { size: 14, cls: "soil" });
+
+// ---------- 第一章 树干 ----------
+const TG = part("trunk", 1, "struct", [600, G], .5, TREE); TG.classList.add("rise"); TG.removeAttribute("tabindex"); TG.removeAttribute("role"); TG.style.cursor = "default";
+el("path", { d: taper(TRUNK, 92, 40), fill: "url(#bark)" }, TG);
+el("path", { d: `M548 ${G + 6}Q574 ${G - 30} 562 ${G - 70}L638 ${G - 70}Q628 ${G - 30} 654 ${G + 6}Z`, fill: "url(#bark)" }, TG);
+for (let k = 0; k < 7; k++) { const x0 = 580 + k * 7 + rnd() * 4; el("path", { d: `M${x0} ${G - 10}C${x0 - 8} ${G - 120} ${x0 + 10} ${G - 220} ${x0 - 2 + (k - 3) * 2} ${G - 300}`, stroke: "rgba(40,24,12,.28)", "stroke-width": 1.5, fill: "none" }, TG); }
+// ---------- 第二章 大枝 ----------
+const TWIG = [];
+Object.entries(BR).forEach(([id, s], i) => {
+  const g = part(id, 2, "struct", s[0], .9 + i * .12, TREE);
+  el("path", { d: taper(s, 34, 7), fill: "url(#bark)" }, g);
+  [.42, .66, .82].forEach((t, k) => {
+    const p = at(id, t), sd = (k + i) % 2 ? 1 : -1, n = nrm(id, t, sd), d = norm(dbez(s, t)), len = 55 + rnd() * 45;
+    const e = [p[0] + (n[0] * .8 + d[0] * .6) * len, p[1] + (n[1] * .8 + d[1] * .6) * len - 10];
+    el("path", { d: taper([p, [p[0] + d[0] * 20, p[1] + d[1] * 20], [e[0] - d[0] * 10, e[1] + 6], e], 9, 2), fill: "var(--bark2)" }, g);
+    TWIG.push({ e, id });
+  });
+  el("path", { d: cubicD(s), class: "hit", "stroke-width": 30 }, g);
+  const m = at(id, .5), n = nrm(id, .5, 1); const up = n[1] < 0 ? n : [-n[0], -n[1]];
+  label(m[0] + up[0] * 30, m[1] + up[1] * 30 + 6, SHORT[id], 2, id, { size: 18, bold: true });
+});
+
+// crown masses
+const CROWN = el("g", { class: "decor g" }, DEC); CROWN.style.transformOrigin = "600px 400px"; CROWN.style.setProperty("--d", "1.4s");
+const crownPts = TWIG.map(t => t.e).concat(Object.keys(BR).flatMap(id => [.55, .75, .95].map(t => at(id, t))));
+const C1 = el("g", { opacity: .3 }, CROWN), C2 = el("g", { opacity: .3 }, CROWN), C3 = el("g", { opacity: .35 }, CROWN);
+crownPts.forEach(c => el("circle", { cx: c[0] + 8, cy: c[1] + 14, r: 50 + rnd() * 28, fill: "var(--leaf2)" }, C1));
+crownPts.forEach(c => el("circle", { cx: c[0] - 6, cy: c[1] - 6, r: 38 + rnd() * 22, fill: "var(--leaf3)" }, C2));
+crownPts.forEach(c => el("circle", { cx: c[0] - 14, cy: c[1] - 18, r: 16 + rnd() * 14, fill: "var(--leaf4)" }, C3));
+// decorative foliage
+const FOL = el("g", { class: "decor g" }, TREE); FOL.style.transformOrigin = "600px 300px"; FOL.style.setProperty("--d", "1.6s");
+const leafCols = ["var(--leaf1)", "var(--leaf2)", "var(--leaf3)", "var(--leaf4)"];
+const spots = TWIG.map(t => t.e).concat(Object.keys(BR).flatMap(id => [.4, .52, .64, .76, .88, 1].map(t => at(id, t))));
+spots.forEach(c => { for (let i = 0; i < 11; i++) { const a = rnd() * Math.PI * 2, r = 8 + rnd() * 38; leaf(c[0] + Math.cos(a) * r, c[1] + Math.sin(a) * r, a * 57 + rnd() * 40, 14 + rnd() * 9, 5 + rnd() * 2, leafCols[(i + Math.round(c[0])) % 4], FOL); } });
+FOL.style.opacity = .85;
+
+// ---------- 第一章 树结 ----------
+const KN = [["1.1", 676], ["1.2", 624], ["1.3", 572], ["1.4", 520]];
+KN.forEach(([id, y], i) => {
+  const p = bez(TRUNK, (G + 8 - y) / (G + 8 - 372)), x = 600 + (p[0] - 600) * .4;
+  const g = part(id, 1, "", [x, y], .7 + i * .06, TREE);
+  el("ellipse", { cx: x, cy: y, rx: 11, ry: 7, fill: "#3e2717" }, g);
+  el("ellipse", { cx: x, cy: y - 1, rx: 6, ry: 3.5, fill: "#7c5538" }, g);
+  const side = i % 2 ? 1 : -1, lx = x + side * 70;
+  el("path", { d: `M${x + side * 13} ${y}L${lx - side * 6} ${y}`, stroke: "var(--muted)", "stroke-width": 1, "stroke-dasharray": "2 3" }, g);
+  el("rect", { x: x - 16, y: y - 12, width: 32, height: 24, class: "hit" }, g);
+  label(lx, y + 6, SHORT[id], 1, id, { anchor: side > 0 ? "start" : "end", size: 16 });
+});
+
+// ---------- 第四章 藤 ----------
+function vine(id, pts, delay, lab, lp) {
+  const g = part(id, 4, "", pts[0], delay, TREE);
+  let d = `M${pts[0]}`; for (let i = 1; i < pts.length; i++) { const a = pts[i - 1], b = pts[i]; const mx = (a[0] + b[0]) / 2, my = (a[1] + b[1]) / 2; const w = (i % 2 ? 1 : -1) * 22; const nn = norm([b[1] - a[1], a[0] - b[0]]); d += `Q${(mx + nn[0] * w).toFixed(1)} ${(my + nn[1] * w).toFixed(1)} ${b}`; }
+  const p = el("path", { d, stroke: "#4f8f3f", "stroke-width": 3.2, fill: "none", "stroke-linecap": "round" }, g);
+  const len = p.getTotalLength();
+  for (let s = 14; s < len; s += 26) { const q = p.getPointAtLength(s); leaf(q.x, q.y, (s * 7) % 360, 11, 4.5, s % 52 < 26 ? "#5e9b52" : "#86b86b", g); }
+  el("path", { d, class: "hit", "stroke-width": 18 }, g);
+  label(lp[0], lp[1], lab, 4, id, { size: 15 });
+}
+const spiral = []; for (let k = 0; k <= 9; k++) { const y = G - 10 - k * 33, p = bez(TRUNK, (G + 8 - y) / (G + 8 - 372)); spiral.push([Math.round(p[0] + (k % 2 ? 26 : -26)), y]); }
+vine("4.1", spiral, 2.0, "组织结构", [672, 452]);
+vine("4.2", [at("2.1", .62), [400, 300], at("2.2", .62)], 2.15, "团队协作", [372, 318]);
+vine("4.3", [at("2.2", .82), [470, 105], [600, 150], [730, 105], at("2.4", .82)], 2.25, "信息连接", [462, 90]);
+vine("4.4", [at("2.5", .98), [1030, 420], [1080, 500], [1104, 590]], 2.3, "院内与院外", [1110, 472]);
+
+// ---------- 第五章 树液 ----------
+const FLOWS = { "5.1": ["2.1", "2.2", "2.3"], "5.2": ["2.4", "2.2", "2.1"], "5.3": ["2.5", "2.3", "2.2"], "5.4": ["2.4", "2.5"], "5.5": ["2.1", "2.3"] };
+Object.entries(FLOWS).forEach(([id, brs], i) => {
+  const g = el("g", { class: "flow", "data-id": id, "data-ch": 5 }, FLOW); const off = (i - 2) * 5;
+  brs.forEach(b => { const s = BR[b].map(p => [p[0] + off * .6, p[1] + off * .6]);
+    const d = `M${600 + off} ${G - 4}C${590 + off} 640 ${606 + off} 560 ${s[0]}C${s[1]} ${s[2]} ${s[3]}`;
+    el("path", { d, fill: "none", stroke: FLOWC[id], "stroke-width": 11, opacity: .28, "stroke-linecap": "round" }, g); el("path", { d, class: "f", stroke: FLOWC[id] }, g); el("path", { d, class: "hit", "stroke-width": 12 }, g); });
+  (parts[id] = parts[id] || []).push(g);
+});
+
+// ---------- 第三章 叶簇 ----------
+const LC = { "3.1": ["2.2", .8, -1], "3.2": ["2.3", .78, 1], "3.3": ["2.1", .86, 1], "3.4": ["2.5", .86, -1], "3.5": ["2.4", .8, 1] };
+Object.entries(LC).forEach(([id, [b, t, sd]], i) => {
+  const p = at(b, t), n = nrm(b, t, sd), c = [p[0] + n[0] * 26, p[1] + n[1] * 26];
+  const g = part(id, 3, "", c, 1.8 + i * .1, TREE);
+  for (let k = 0; k < 9; k++) { const a = (k / 9) * Math.PI * 2 + rnd() * .4; leaf(c[0], c[1], a * 57.3, 30 + rnd() * 6, 13, ["#2f6e3a", "#3f8a44", "#58a24e"][k % 3], g); }
+  el("circle", { cx: c[0], cy: c[1], r: 5, fill: "#2a5c31" }, g);
+  el("circle", { cx: c[0], cy: c[1], r: 34, class: "hit" }, g);
+  const lp = { "3.1": [0, -44], "3.2": [44, 6, "start"], "3.3": [0, 60], "3.4": [0, -44], "3.5": [0, -44] }[id]; label(c[0] + lp[0], c[1] + lp[1], SHORT[id], 3, id, { bold: true, size: 17, anchor: lp[2] });
+});
+
+// ---------- 第七章 果实 ----------
+const FR = { "7.1": ["2.2", .45, "fruitR"], "7.2": ["2.2", .63, "fruitO"], "7.3": ["2.4", .45, "fruitO"], "7.4": ["2.5", .62, "fruitR"], "7.5": ["2.4", .64, "fruitR"] };
+Object.entries(FR).forEach(([id, [b, t, f]], i) => {
+  const p = at(b, t), x = p[0], y = p[1] + 6, h = 26;
+  const g = part(id, 7, "", [x, y], 2.5 + i * .1, TREE);
+  el("path", { d: `M${x} ${y}q3 ${h / 2} 0 ${h}`, stroke: "#5a3d2a", "stroke-width": 2, fill: "none" }, g);
+  leaf(x + 1, y + 6, -25, 15, 5, "#4f8f3f", g);
+  el("circle", { cx: x, cy: y + h + 13, r: 15, fill: `url(#${f})` }, g);
+  el("ellipse", { cx: x - 5, cy: y + h + 7, rx: 4, ry: 2.5, fill: "rgba(255,255,255,.55)" }, g);
+  el("circle", { cx: x, cy: y + h + 13, r: 22, class: "hit" }, g);
+  label(x, y + h + 50, SHORT[id], 7, id, { size: 15 });
+});
+
+// ---------- 第九章 新芽 ----------
+const BUD = { "9.1": [548, -18], "9.2": [600, -42], "9.3": [652, -18] };
+const top = BR["2.3"][3];
+Object.entries(BUD).forEach(([id, p], i) => {
+  const g = part(id, 9, "", top, 2.9 + i * .1, TREE);
+  el("path", { d: `M${top[0]} ${top[1]}Q${(top[0] + p[0]) / 2 + (i - 1) * -10} ${top[1] - 20} ${p[0]} ${p[1] + 10}`, stroke: "#6aa84f", "stroke-width": 3.5, fill: "none", "stroke-linecap": "round" }, g);
+  el("circle", { cx: p[0], cy: p[1], r: 20, fill: "url(#budG)", class: "bud" }, g);
+  leaf(p[0], p[1] + 8, -60, 18, 7, "#8cc152", g); leaf(p[0], p[1] + 8, -120, 18, 7, "#a6d36a", g);
+  el("circle", { cx: p[0], cy: p[1], r: 22, class: "hit" }, g);
+  const lx = i === 0 ? p[0] - 28 : i === 2 ? p[0] + 28 : p[0];
+  label(lx, i === 1 ? p[1] - 22 : p[1] + 4, SHORT[id], 9, id, { size: 15, anchor: i === 0 ? "end" : i === 2 ? "start" : "middle" });
+});
+
+// ---------- 第六章 护栏 ----------
+const FX = [418, 504, 590, 676, 762], FY = G + 46;
+const rails = el("g", { class: "part g", "data-ch": 6 }, FG); rails.style.transformOrigin = `590px ${FY}px`; rails.style.setProperty("--d", "2.7s"); (parts["fence"] = []).push(rails);
+el("path", { d: `M400 ${FY - 30}L780 ${FY - 30}M400 ${FY - 12}L780 ${FY - 12}`, stroke: "#c49a6c", "stroke-width": 6, "stroke-linecap": "round" }, rails);
+el("path", { d: `M400 ${FY - 33}L780 ${FY - 33}`, stroke: "rgba(255,255,255,.25)", "stroke-width": 1.5 }, rails);
+FX.forEach((x, i) => {
+  const id = "6." + (i + 1); const g = part(id, 6, "", [x, FY], 2.7 + i * .06, FG);
+  el("path", { d: `M${x - 9} ${FY}V${FY - 48}l9 -12l9 12V${FY}Z`, fill: "url(#wood)", stroke: "#8a6440", "stroke-width": 1.5 }, g);
+  el("rect", { x: x - 22, y: FY - 62, width: 44, height: 70, class: "hit" }, g);
+  label(x, FY + 26, SHORT[id], 6, id, { size: 15, cls: "soil", bold: true });
+});
+
+// ---------- 序章 路牌 ----------
+const SG = part("ch0", 0, "", [150, G], 3.0, FG);
+el("rect", { x: 144, y: G - 92, width: 11, height: 100, fill: "url(#wood)", stroke: "#8a6440" }, SG);
+el("path", { d: `M66 ${G - 120}H222l18 20l-18 20H66Z`, fill: "url(#wood)", stroke: "#8a6440", "stroke-width": 1.5 }, SG);
+const st = el("text", { x: 150, y: G - 94, "text-anchor": "middle", "font-size": 15, class: "b" }, SG); st.textContent = "从挂号单说起"; st.style.stroke = "none"; st.style.fill = "#4a3220";
+el("rect", { x: 60, y: G - 126, width: 186, height: 136, class: "hit" }, SG);
+label(150, G + 32, "序章", 0, "ch0", { cls: "soil", size: 15, bold: true });
+
+// ---------- interactions ----------
+const tip = document.getElementById("tip"), stage = document.querySelector(".stage"), panel = document.getElementById("panel"), nav = document.getElementById("nav");
+let curCh = -1, curId = null, curFlow = null;
+const allParts = () => svg.querySelectorAll(".part, .flow");
+function apply() {
+  svg.classList.toggle("focus", curCh >= 0 || !!curId);
+  svg.classList.toggle("flows", curCh === 5 || (curId && curId.startsWith("5.")));
+  allParts().forEach(g => {
+    const on = (curCh >= 0 && +g.dataset.ch === curCh) || (curId && g.dataset.id === curId) || (g === TG && curId && SEC[curId] && SEC[curId].ch === 1);
+    g.classList.toggle("on", !!on); g.classList.toggle("sel", !!curId && g.dataset.id === curId && !g.classList.contains("flow"));
+    if (g.classList.contains("flow")) g.classList.toggle("dim", !!curFlow && g.dataset.id !== curFlow);
+  });
+  if (curCh === 1 || (curId && SEC[curId] && SEC[curId].ch === 1)) TG.classList.add("on");
+  labelEls.forEach(t => t.classList.toggle("on", (curCh >= 0 && +t.dataset.ch === curCh) || (curId && t.dataset.id === curId)));
+  nav.querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", String(+b.dataset.ch === curCh || (curCh < 0 && !curId && b.dataset.ch === "-1"))));
+}
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+function chName(ci) { return BOOK[ci].title.split(/\s/)[0]; }
+function askText(s) {
+  return `我在读《现代医院》（AI时代系统知识基础读物）${s.id} ${s.t}。本节要点：${s.k.join("；")}。\n请结合医院作为一个系统（组成、功能、连接、流动、机制、技术、原理）的整体结构，把这一节讲得更具体一些，再给我 3 个可以在医院现场或公开资料里观察核实的问题。`;
+}
+function showSec(id) {
+  const s = SEC[id]; curId = id; curCh = -1; curFlow = id.startsWith("5.") ? id : null; apply();
+  const c = CH[s.ch];
+  panel.innerHTML = `<div class="kick">${esc(chName(s.ch))} · ${c.part}</div><h2>${esc(s.id + " " + s.t)}</h2>
+  ${s.ch === 5 ? legend() : ""}
+  <p class="meta">本节要点</p><ul>${s.k.map(k => `<li>${esc(k)}</li>`).join("")}</ul>
+  <div class="acts"><a class="pri" href="${esc(s.u)}">读这一节 →</a><button class="sec" type="button" id="ask">复制去问 AI</button><button class="sec" type="button" data-goch="${s.ch}">看整章</button></div>`;
+  bindPanel(askText(s));
+}
+function legend() { return `<div class="legend">${Object.keys(FLOWC).map(f => `<button type="button" data-flow="${f}" aria-pressed="${curFlow === f}"><i style="background:${FLOWC[f]}"></i>${SHORT[f]}</button>`).join("")}</div>`; }
+function showCh(ci) {
+  curCh = ci; curId = null; curFlow = null; apply();
+  const C = BOOK[ci], c = CH[ci];
+  const treeSecs = C.secs.filter(s => SHORT[s.id]), other = C.secs.filter(s => !SHORT[s.id]);
+  panel.innerHTML = `<div class="kick">${esc(chName(ci))} · ${c.part}</div><h2>${esc(C.title.replace(/^\S+\s/, ""))}</h2><p class="meta">${esc(c.desc)}</p>
+  ${ci === 5 ? legend() : ""}
+  <ul class="secs">${treeSecs.map(s => `<li><button type="button" data-sec="${s.id}"><b>${s.id}</b>${esc(s.t)}</button></li>`).join("")}
+  ${other.map(s => `<li><a href="${esc(s.u)}"><b>${s.id}</b>${esc(s.t)} ↗</a></li>`).join("")}</ul>
+  <div class="acts"><a class="pri" href="${esc(C.secs[0].u)}">从本章开头读 →</a></div>`;
+  bindPanel(null);
+}
+function showAll() {
+  curCh = -1; curId = null; curFlow = null; apply();
+  panel.innerHTML = `<div class="kick">全书 · 一棵树</div><h2>现代医院</h2><p class="meta">九章书，长成一棵树。从下往上读：</p>
+  <ul class="secs">${CH.map((c, i) => `<li><button type="button" data-goch="${i}"><b>${c.ic}</b>${c.part} · ${esc(chName(i))} ${esc(BOOK[i].title.replace(/^\S+\s/, "").split(/[：——]/)[0])}</button></li>`).join("")}</ul>
+  <p class="meta" style="margin-top:10px">根是原理，干是医院本身；枝是组成，叶是功能，果是技术；藤把各部分连起来，树液在其中流动，护栏守护安全，新芽通向 AI。</p>`;
+  bindPanel(null);
+}
+function bindPanel(ask) {
+  panel.querySelectorAll("[data-sec]").forEach(b => b.onclick = () => showSec(b.dataset.sec));
+  panel.querySelectorAll("[data-goch]").forEach(b => b.onclick = () => showCh(+b.dataset.goch));
+  panel.querySelectorAll("[data-flow]").forEach(b => b.onclick = () => showSec(b.dataset.flow));
+  const a = panel.querySelector("#ask");
+  if (a && ask) a.onclick = () => {
+    const done = () => { a.textContent = "已复制，粘贴到 AI 对话中 ✓"; setTimeout(() => a.textContent = "复制去问 AI", 2200); };
+    if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(ask).then(done, () => prompt("复制下面的文字：", ask)); else prompt("复制下面的文字：", ask);
+  };
+}
+function hit(e) { const g = e.target.closest(".part[data-id], .flow[data-id]"); return g && g.dataset.id; }
+svg.addEventListener("click", e => { const id = hit(e); if (!id) return; if (id === "ch0") showCh(0); else if (id === "fence") showCh(6); else if (SEC[id]) showSec(id); else return;
+  if (window.matchMedia("(max-width: 1080px)").matches) setTimeout(() => panel.scrollIntoView({ behavior: "smooth", block: "nearest" }), 60); });
+svg.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { const id = hit(e); if (id) { e.preventDefault(); id === "ch0" ? showCh(0) : SEC[id] && showSec(id); } } });
+svg.addEventListener("mousemove", e => {
+  const id = hit(e); if (!id || !SEC[id] && id !== "ch0") { tip.classList.remove("show"); return; }
+  const r = stage.getBoundingClientRect(); tip.textContent = id === "ch0" ? "序章 从一张挂号单说起" : id + " " + SEC[id].t;
+  tip.style.left = (e.clientX - r.left) + "px"; tip.style.top = (e.clientY - r.top) + "px"; tip.classList.add("show");
+});
+svg.addEventListener("mouseleave", () => tip.classList.remove("show"));
+nav.innerHTML = `<button type="button" data-ch="-1"><span class="ic">🌳</span><span class="nm">全树<small>一本书，一棵树</small></span></button>` +
+  CH.map((c, i) => `<button type="button" data-ch="${i}"><span class="ic">${c.ic}</span><span class="nm">${c.part}<small>${esc(chName(i))}</small></span></button>`).join("");
+nav.querySelectorAll("button").forEach(b => b.onclick = () => +b.dataset.ch < 0 ? showAll() : showCh(+b.dataset.ch));
+function grow() { svg.classList.remove("grow"); void svg.getBoundingClientRect(); svg.classList.add("grow"); }
+document.getElementById("regrow").onclick = grow;
+const sc = document.getElementById("scroller"); requestAnimationFrame(() => { sc.scrollLeft = (sc.scrollWidth - sc.clientWidth) / 2; });
+showAll(); grow();
+})();
+</script>
+</body>
+</html>
