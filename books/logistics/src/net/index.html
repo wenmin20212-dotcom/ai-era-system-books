@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>现代物流 · 知识网</title>
+<meta name="description" content="把《现代物流》织成一张网：九层分色，每个节点是一节，每条线是两节共同讲到的物流概念。点任何节点，回到书中对应的小节。">
+<style>
+:root {
+  --paper: #f5f3ee; --paper2: #ebe7de; --ink: #23262b; --muted: #676b72; --line: #dcd7cc;
+  --accent: #1f5f8b; --accent-soft: #e1ecf4; --card: #fffefb; --halo: #f5f3ee;
+  --map1: #fbfaf6; --map2: #f1eee6; --grid: rgba(60,70,80,.07); --edge: #8a8f98; --band: .075;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #12161b; --paper2: #1a2028; --ink: #e8e6e1; --muted: #9ea3aa; --line: #2b333d;
+    --accent: #7fb8e6; --accent-soft: #1b2a38; --card: #1a2028; --halo: #141a20;
+    --map1: #141a20; --map2: #10151a; --grid: rgba(200,210,220,.05); --edge: #7d8590; --band: .11;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #12161b; --paper2: #1a2028; --ink: #e8e6e1; --muted: #9ea3aa; --line: #2b333d;
+  --accent: #7fb8e6; --accent-soft: #1b2a38; --card: #1a2028; --halo: #141a20;
+  --map1: #141a20; --map2: #10151a; --grid: rgba(200,210,220,.05); --edge: #7d8590; --band: .11;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: var(--paper); color: var(--ink); font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", sans-serif; line-height: 1.6; }
+a { color: var(--accent); }
+header { max-width: 1440px; margin: 0 auto; padding: 22px 20px 6px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 18px; }
+header .back { font-size: .9em; text-decoration: none; color: var(--muted); }
+header .back:hover { color: var(--accent); }
+header h1 { font-family: "Songti SC", "STSong", "Noto Serif SC", serif; font-size: 1.9em; margin: 0; letter-spacing: .04em; flex-basis: 100%; }
+header h1 small { font-size: .5em; color: var(--muted); font-family: inherit; letter-spacing: 0; margin-left: .6em; font-weight: normal; }
+header p { margin: 0; color: var(--muted); font-size: .95em; flex-basis: 100%; }
+.wrap { max-width: 1440px; margin: 0 auto; padding: 10px 20px 40px; display: grid; grid-template-columns: 200px minmax(0, 1fr) 330px; gap: 18px; align-items: start; }
+nav { position: sticky; top: 12px; display: flex; flex-direction: column; gap: 3px; }
+nav button { all: unset; cursor: pointer; display: grid; grid-template-columns: 26px 1fr; align-items: center; padding: 6px 10px; border-radius: 10px; font-size: .92em; color: var(--ink); }
+nav button .dot { width: 12px; height: 12px; border-radius: 50%; justify-self: center; box-shadow: 0 0 0 3px color-mix(in srgb, var(--c) 22%, transparent); background: var(--c); }
+nav button .nm small { display: block; color: var(--muted); font-size: .8em; line-height: 1.3; }
+nav button:hover { background: var(--paper2); }
+nav button[aria-pressed="true"] { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+nav button:focus-visible { outline: 2px solid var(--accent); }
+.stage { position: relative; background: linear-gradient(180deg, var(--map1), var(--map2)); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; }
+.stage .scroller { overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; }
+.stage svg { display: block; width: 100%; height: auto; min-width: 680px; }
+.tools { position: absolute; right: 12px; top: 10px; display: flex; gap: 6px; z-index: 2; }
+.tools button { font: inherit; font-size: .82em; padding: 4px 11px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; }
+.tools button:hover, .tools button[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); }
+.tip { position: absolute; pointer-events: none; background: var(--ink); color: var(--paper); font-size: .82em; padding: 3px 9px; border-radius: 6px; white-space: nowrap; transform: translate(-50%, -140%); opacity: 0; transition: opacity .12s; z-index: 3; }
+.tip.show { opacity: .94; }
+aside { position: sticky; top: 12px; background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 18px 18px 16px; min-height: 280px; }
+aside .kick { font-size: .78em; letter-spacing: .08em; font-weight: 600; display: flex; align-items: center; gap: 6px; color: var(--muted); }
+aside .kick i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+aside h2 { font-family: "Songti SC", "STSong", "Noto Serif SC", serif; font-size: 1.28em; margin: 4px 0 8px; line-height: 1.35; }
+aside .meta { color: var(--muted); font-size: .9em; margin: 0 0 8px; }
+aside ul { margin: 4px 0 12px; padding-left: 1.1em; }
+aside li { margin: 3px 0; font-size: .93em; }
+aside .secs { list-style: none; padding: 0; }
+aside .secs button, aside .secs a { all: unset; cursor: pointer; display: block; padding: 5px 8px; margin: 0 -8px; border-radius: 8px; font-size: .93em; color: var(--ink); }
+aside .secs button:hover, aside .secs a:hover { background: var(--paper2); }
+aside .secs b { font-weight: 600; margin-right: .4em; }
+aside .secs .why { display: block; color: var(--muted); font-size: .85em; }
+.acts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.acts a, .acts button { font: inherit; font-size: .88em; padding: 6px 13px; border-radius: 999px; cursor: pointer; text-decoration: none; }
+.acts .pri { background: var(--accent); color: var(--paper); border: 1px solid var(--accent); }
+.acts .sec { background: none; color: var(--accent); border: 1px solid var(--accent); }
+footer { max-width: 1440px; margin: 0 auto; padding: 0 20px 30px; color: var(--muted); font-size: .82em; }
+
+/* SVG */
+svg text { font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", sans-serif; paint-order: stroke; stroke: var(--halo); stroke-width: 4.5px; stroke-linejoin: round; fill: var(--ink); pointer-events: none; }
+svg .lanelab text { stroke: none; }
+.band { transition: opacity .35s; }
+.edge { fill: none; stroke-linecap: round; stroke-width: 1.7; opacity: .42; transition: opacity .35s, stroke-width .35s; }
+.edge.hot { opacity: 1; stroke-width: 3.6; stroke-dasharray: 12 6; animation: run 1.2s linear infinite; }
+@keyframes run { to { stroke-dashoffset: -18; } }
+svg.focus .edge { opacity: .07; } svg.focus .edge.hot { opacity: 1; }
+svg.focus .edge.warm { opacity: .7; stroke-width: 2.2; }
+.node { cursor: pointer; transition: opacity .35s; }
+.node .ring { fill: var(--halo); stroke-width: 3; }
+.node .core { transition: r .25s; }
+.node .hit { fill: transparent; }
+.node:hover .core { r: 8; }
+.node:focus { outline: none; } .node:focus-visible .ring { stroke-dasharray: 3 3; }
+svg.focus .node { opacity: .25; } svg.focus .node.on { opacity: 1; }
+svg.focus .band { opacity: .45; } svg.focus .band.on { opacity: 1; }
+.node.sel .pulse { animation: pulse 1.8s ease-out infinite; }
+.pulse { fill: none; stroke-width: 2; opacity: 0; transform-box: fill-box; transform-origin: center; }
+@keyframes pulse { 0% { transform: scale(1); opacity: .8; } 100% { transform: scale(2.6); opacity: 0; } }
+.route { fill: none; stroke: #e0a020; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 10 8; opacity: 0; transition: opacity .4s; animation: run 1s linear infinite; pointer-events: none; }
+svg.trip .route { opacity: .95; }
+svg.trip .edge { opacity: .06; } svg.trip .node { opacity: .3; } svg.trip .node.onroute { opacity: 1; }
+.parcel { opacity: 0; pointer-events: none; } svg.trip .parcel { opacity: 1; }
+.leg { opacity: 0; transition: opacity .4s; } svg.trip .leg { opacity: 1; }
+.leg text { font-size: 11px; fill: #fff; stroke: none; font-weight: 700; }
+svg.draw .edge { animation: draw 1.4s ease-out both; animation-delay: var(--d); stroke-dasharray: var(--len); }
+svg.draw .node { animation: pop .6s cubic-bezier(.2,.8,.3,1.3) both; animation-delay: var(--d); transform-box: fill-box; transform-origin: center; }
+@keyframes draw { from { stroke-dashoffset: var(--len); } to { stroke-dashoffset: 0; } }
+@keyframes pop { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { svg.draw .edge, svg.draw .node, .edge.hot, .route, .pulse { animation: none !important; } }
+@media (max-width: 1080px) {
+  .wrap { grid-template-columns: minmax(0, 1fr); }
+  nav { position: static; flex-direction: row; overflow-x: auto; gap: 6px; padding-bottom: 4px; scrollbar-width: none; }
+  nav button { grid-template-columns: auto auto; gap: 6px; white-space: nowrap; padding: 5px 12px; border: 1px solid var(--line); border-radius: 999px; }
+  nav button .nm small { display: none; }
+  aside { position: static; }
+}
+@media (max-width: 560px) {
+  header { padding: 16px 16px 4px; } .wrap { padding: 8px 16px 32px; }
+  header h1 { font-size: 1.55em; }
+  header h1 small { display: block; margin: 4px 0 0; font-size: .5em; }
+}
+</style>
+</head>
+<body>
+<header>
+  <a class="back" href="../">← 返回《现代物流》</a>
+  <h1>现代物流 · 知识网<small>AI时代系统知识基础读物 第 59 册</small></h1>
+  <p>九层分色，一个节点是一节，一条线是两节都讲到的物流概念。点任何节点，看它连着哪些节，再回到书中原文。</p>
+</header>
+<div class="wrap">
+  <nav id="nav" aria-label="按层查看"></nav>
+  <div class="stage">
+    <div class="tools"><button type="button" id="trip" aria-pressed="false">📦 跟一个包裹走</button><button type="button" id="redraw">重新织网</button></div>
+    <div class="scroller" id="scroller"><svg id="net" viewBox="0 0 1200 960" role="img" aria-label="《现代物流》知识网"></svg></div>
+    <div class="tip" id="tip"></div>
+  </div>
+  <aside id="panel" aria-live="polite"></aside>
+</div>
+<footer>连线依据：两节正文都多次讲到同一个词（例如「集运仓」「清关」），线旁的词就是它们的共同概念。网的形状是阅读示意，帮助记住各部分之间的关系；具体内容以书中原文为准。</footer>
+<script>
+const DATA = {"ch": [{"title": "序章 从一个跨境包裹走进物流行业", "u": "../ch00/index.html", "secs": [{"id": "0.1", "t": "本书原则：读完能看懂物流行业、听懂行话", "u": "../ch00/01.html", "k": ["从手里的东西出发，不从行话出发", "听懂行话，要同时听懂边界", "把“谁在做”与“谁在付”分开看", "用可核实的问题代替想当然的答案"]}, {"id": "0.2", "t": "骨架地图：现代物流的全貌与九层阅读法", "u": "../ch00/02.html", "k": ["一张物流轨迹，为什么还不够", "先看全貌：物流不等于“运货”", "九层阅读法：从认出包裹到解释行业", "带着地图读，而不是急着猜答案"]}, {"id": "0.3", "t": "书、包裹与AI：把阅读、观察和追问结合起来", "u": "../ch00/03.html", "k": ["先看实物：把“我收到的包裹”变成观察对象", "再读骨架：把一条轨迹放回整条链路", "善用AI：请它解释，不请它编造经历", "最后求证：让疑问带你回到包裹"]}]}, {"title": "第一章 认识对象——现代物流包括什么", "u": "../ch01/index.html", "secs": [{"id": "1.1", "t": "从一个免运费包裹出发：中国网购海运到马来西亚的全程", "u": "../ch01/04.html", "k": ["第一段路：从商家到集运仓", "第二段路：从仓库到海上的运输单元", "第三段路：跨越国境，不只是坐一趟船", "最后一段路：从港口到家门口"]}, {"id": "1.2", "t": "物流的基本功能：运输、仓储、装卸搬运、包装、流通加工、配送与信息处理", "u": "../ch01/05.html", "k": ["移动与停留：运输和仓储", "让货物完成交接：装卸搬运与包装", "从货物到订单：流通加工与配送", "看不见却贯穿全程：信息处理"]}, {"id": "1.3", "t": "行业地图：快递、快运、零担、整车、仓储、冷链、跨境与供应链物流", "u": "../ch01/06.html", "k": ["从鞋盒到家具：快递、快运与零担", "一车货与一座仓：整车、仓储怎样接上运输", "需要控温或过境：冷链与跨境是另一种分法", "从送一票货到安排全程：供应链物流"]}, {"id": "1.4", "t": "产业链、企业类型与岗位：快递企业、货代、船公司、第三方物流与平台", "u": "../ch01/07.html", "k": ["从标签看产业链：谁在传递包裹", "五类企业，各自解决什么问题", "岗位怎样把企业连接起来", "一条轨迹背后，是一张协作网"]}, {"id": "1.5", "t": "本章骨架小结与实物探索任务", "u": "../ch01/08.html", "k": ["把本章画成一张骨架图", "从免运费包裹看见看不见的工作", "实物探索：用手边材料验证骨架", "让AI帮助追问，而不是替你猜"]}]}, {"title": "第二章 看懂结构——物流网络与作业现场", "u": "../ch02/index.html", "secs": [{"id": "2.1", "t": "节点与线路：网点、分拨中心、枢纽、港口与通道", "u": "../ch02/09.html", "k": ["先分清：什么是节点，什么是线路", "网点与分拨中心：一头接人，一头接网络", "枢纽与港口：网络为什么有“关键站”", "通道不是地图上的一根直线"]}, {"id": "2.2", "t": "快递网络的层级：揽收、集包、中转、干线、分拨与派件", "u": "../ch02/10.html", "k": ["从上门取件到集包：先把小件聚起来", "中转与干线：用大流量连接远处", "分拨与派件：从“大方向”细化到门牌号", "把层级套回跨境包裹"]}, {"id": "2.3", "t": "仓库现场：收货区、库位、拣货区、打包台与发货区", "u": "../ch02/11.html", "k": ["从卸货口开始：收货不是简单搬进来", "进入库位：货放在哪里，系统就要知道在哪里", "按订单取货：拣货区与打包台各管一件事", "发货区：离开仓库前的最后一道交接"]}, {"id": "2.4", "t": "跨境链条：头程、集运仓、出口报关、国际干线、进口清关与尾程", "u": "../ch02/12.html", "k": ["从商家到集运仓：头程与合包", "出口报关：货物怎样离开中国", "国际干线：为什么轨迹会突然安静", "进口清关与尾程：进入当地配送网络"]}, {"id": "2.5", "t": "运载工具与集装单元：车辆、船舶、飞机、托盘与集装箱", "u": "../ch02/13.html", "k": ["运载工具各有适合的路段", "托盘：让零散货物一次移动", "集装箱：跨越车辆与船舶的接口", "从“能装进去”到“能安全交接”"]}, {"id": "2.6", "t": "本章骨架小结与实物探索任务", "u": "../ch02/14.html", "k": ["把网络画成“点、线、交接”", "用一张图检验是否真正看懂", "实物探索：从手边材料找证据", "让 AI 帮你追问，而不是替你猜"]}]}, {"title": "第三章 理解功能——每个环节做什么、行话怎么说", "u": "../ch03/index.html", "secs": [{"id": "3.1", "t": "面单与运单：一张标签上的全部信息", "u": "../ch03/15.html", "k": ["面单贴在包裹上，运单记录在系统里", "一张标签要回答哪些问题", "换一段运输，为什么可能换一张面单", "扫描记录说明了什么，没有说明什么"]}, {"id": "3.2", "t": "揽收、集包与建包：小件怎样变成大件", "u": "../ch03/16.html", "k": ["揽收：把货物接入物流网络", "集包：先按去向把小件组织起来", "建包：让物理上的一袋货有据可查", "从一件到一袋，再回到一件"]}, {"id": "3.3", "t": "仓储作业：入库、上架、拣货、复核、打包与出库", "u": "../ch03/17.html", "k": ["入库：先确认收到，再记录差异", "上架：给货物一个找得到的位置", "拣货与复核：把“找得到”变成“拿得对”", "打包与出库：把仓内货物交给下一程"]}, {"id": "3.4", "t": "报关与清关：申报、查验、征税与放行", "u": "../ch03/18.html", "k": ["从出口报关到进口清关", "申报：让货物有可核对的身份", "查验、征税与放行不是同一件事", "“免运费”为什么仍可能收到税费通知"]}, {"id": "3.5", "t": "派送与签收：妥投、退件与客服", "u": "../ch03/19.html", "k": ["从配送站到收件人：最后一段仍有好几步", "“已签收”究竟证明了什么", "派不成怎么办：异常与退件", "客服连接记录与现场"]}, {"id": "3.6", "t": "本章骨架小结与实物探索任务", "u": "../ch03/20.html", "k": ["把五项作业连成一条线", "读轨迹时，分清“动作”和“结果”", "用手边的实物验证本章"]}]}, {"title": "第四章 建立关系——谁和谁怎样合作", "u": "../ch04/index.html", "secs": [{"id": "4.1", "t": "平台、商家与物流服务商：分工、结算与责任", "u": "../ch04/21.html", "k": ["谁承诺销售，谁组织运输", "一笔运费怎样在几方之间结算", "出了问题，先辨认是哪一种责任", "用“三张图”看懂合作关系"]}, {"id": "4.2", "t": "货主、货代与承运人：订舱、提单与交接", "u": "../ch04/22.html", "k": ["一张集装箱照片背后的三种角色", "订舱：先约好运力，再安排货物赶上船", "提单：记录运输关系，不是每个包裹的船票", "交接：每换一次负责方，都要留下依据"]}, {"id": "4.3", "t": "国际贸易术语与费用划分：谁付运费、谁担风险", "u": "../ch04/23.html", "k": ["一张报价单上的三个字母", "把一段旅程拆成三条界线", "到门交货，也要看是谁清关", "回到手里的“免运费”包裹"]}, {"id": "4.4", "t": "加盟与直营：快递网络的两种组织方式", "u": "../ch04/24.html", "k": ["谁在经营网点，谁在管理网络", "一票快件怎样经过不同经营者", "两种方式各解决什么难题", "回到跨境包裹：一条轨迹不等于一家公司"]}, {"id": "4.5", "t": "本章骨架小结与实物探索任务", "u": "../ch04/25.html", "k": ["用四组关系画出合作骨架", "沿着一个包裹，分清四种问题", "实物探索：给包裹画一张关系图", "带着证据问 AI"]}]}, {"title": "第五章 掌握流动——货物、信息与资金", "u": "../ch05/index.html", "secs": [{"id": "5.1", "t": "货物流：时效、中转次数与在途时间", "u": "../ch05/26.html", "k": ["从下单到收到，究竟在计哪段时间", "多一次中转，包裹经历了什么", "海运包裹的时间，常花在衔接处", "用一张时间线辨认真正的慢点"]}, {"id": "5.2", "t": "信息流：订单、运单、轨迹与电子数据交换", "u": "../ch05/27.html", "k": ["订单和运单：买卖记录与运输记录", "轨迹：事件留下的时间线", "电子数据交换：让不同企业接得上", "看懂信息流，才能看懂物流轨迹"]}, {"id": "5.3", "t": "资金流：运费、到付、代收货款、税费与补贴", "u": "../ch05/28.html", "k": ["一张订单，可能有几笔钱", "运费到付，不等于代收货款", "税费由法律确定，支付安排由交易确定", "“免运费”是一种收费安排，不是零成本运输"]}, {"id": "5.4", "t": "逆向物流：退货、退运与报废", "u": "../ch05/29.html", "k": ["退货：包裹回来后，先判断商品去向", "退运：跨境包裹不一定走回头路", "报废：不是“扔掉”，而是留下可追溯的记录", "三条流都要接上，售后才算完成"]}, {"id": "5.5", "t": "需求波动：大促爆仓与牛鞭效应", "u": "../ch05/30.html", "k": ["订单突然增多，先挤满的是哪一环", "排队为什么会拉长送达时间", "小小的购买变化，为什么会变成大幅备货", "让货量、信息和能力对得上"]}, {"id": "5.6", "t": "本章骨架小结与实物探索任务", "u": "../ch05/31.html", "k": ["用三条线重画一笔订单", "把退货和需求波动放进同一张图", "拿手边的实物做四次观察", "让 AI 帮你整理，不让它替你猜测"]}]}, {"title": "第六章 理解机制——物流怎样运转、计费与考核", "u": "../ch06/index.html", "secs": [{"id": "6.1", "t": "计费规则：首重续重、体积重与计费重", "u": "../ch06/32.html", "k": ["从首重续重读懂阶梯报价", "为什么轻而大的盒子也可能贵", "计费重怎样进入账单", "一只跨境合包，可能面对不止一套规则"]}, {"id": "6.2", "t": "拼箱与整箱：海运怎样按体积和箱计价", "u": "../ch06/33.html", "k": ["一只纸箱，怎样进入一个集装箱", "拼箱看体积，也可能看重量", "整箱买的是箱位，不是无限装载量", "“免运费”与海运账单是两回事"]}, {"id": "6.3", "t": "库存控制：订货点、安全库存与周转", "u": "../ch06/34.html", "k": ["仓库里有货，为什么还会说“缺货”", "订货点：给补货留出时间", "安全库存：为不确定性留缓冲", "周转：货没有缺，也不能长期不动"]}, {"id": "6.4", "t": "调度与时效承诺：波次、截单时间与班次", "u": "../ch06/35.html", "k": ["波次：仓库为什么不逐单出货", "截单时间：赶上今天还是明天", "班次：一段晚到怎样传到下一段", "承诺：预计到达不是逐环节的保证"]}, {"id": "6.5", "t": "考核指标：时效达成率、妥投率、破损率与单票成本", "u": "../ch06/36.html", "k": ["时效达成率：先划清起点和终点", "妥投与破损：送到了，还要送得对", "单票成本：免运费不等于零成本", "四个数字要放在一起看"]}, {"id": "6.6", "t": "本章骨架小结与实物探索任务", "u": "../ch06/37.html", "k": ["本章骨架：从一票货看五种机制", "实物探索：给包裹做一张“机制记录卡”", "带着证据问 AI"]}]}, {"title": "第七章 关键技术——支撑现代物流的技术与标准", "u": "../ch07/index.html", "secs": [{"id": "7.1", "t": "条码、射频识别与包裹追踪", "u": "../ch07/38.html", "k": ["扫码先要回答：这是谁的包裹", "不逐件扫码时，怎样知道它去了哪里", "轨迹是一串作业记录，不是实时地图", "让追踪可信，靠的是标识与交接规则"]}, {"id": "7.2", "t": "仓储管理系统与运输管理系统", "u": "../ch07/39.html", "k": ["WMS：让仓库知道货在哪里、下一步做什么", "TMS：安排货物离仓后怎样移动", "系统交接：同一个包裹，为什么会有不同状态", "把数据变成可靠作业"]}, {"id": "7.3", "t": "自动化分拣、输送线与仓储机器人", "u": "../ch07/40.html", "k": ["一件包裹怎样被分到正确的出口", "输送线是通道，分拣机是岔路口", "仓储机器人解决的又是哪一步", "自动化要看整条流程，不只看机器速度"]}, {"id": "7.4", "t": "集装箱化与港口作业", "u": "../ch07/41.html", "k": ["从一只包裹看到一只箱", "小包裹怎样进入大箱子", "港口不是一台“大吊车”", "标准化为什么能改变运输"]}, {"id": "7.5", "t": "电子报关与跨境数据申报", "u": "../ch07/42.html", "k": ["货还在路上，数据先走一步", "一个合包，怎样对应一批货", "“清关中”不等于海关正在逐件拆包", "电子化真正连接的是谁"]}, {"id": "7.6", "t": "本章骨架小结与实物探索任务", "u": "../ch07/43.html", "k": ["本章骨架：技术怎样支撑物流链条", "实物探索：从自己的包裹寻找技术证据", "把AI当作解释助手，而不是现场记录"]}]}, {"title": "第八章 原理溯源——物流背后的经济学与数学", "u": "../ch08/index.html", "secs": [{"id": "8.1", "t": "规模经济与密度经济：单位成本为什么会下降", "u": "../ch08/44.html", "k": ["一车多装几件，省下的是什么", "规模经济：让设施和班次被更多货物使用", "密度经济：货物是否聚在同一条路上", "省下单位成本，不等于没有代价"]}, {"id": "8.2", "t": "运输经济学：海运、空运与时间的价值", "u": "../ch08/45.html", "k": ["同一件商品，为什么有时坐船、有时坐飞机", "运价之外，还有等待的成本", "快慢不是两条孤立的线", "怎样为一个包裹选择运输方案"]}, {"id": "8.3", "t": "网络设计：选址与轴辐式网络", "u": "../ch08/46.html", "k": ["先分清“点”和“线”", "选址不是在地图上找中心点", "轴辐式网络为什么允许“绕路”", "一张网络图，为什么要反复修改"]}, {"id": "8.4", "t": "运筹优化：路径、装载与排队", "u": "../ch08/47.html", "k": ["路径：最近的一站，不一定该先去", "装载：空间、重量和先后顺序要一起算", "排队：处理得快，还要接得住", "把三个问题放回同一张图"]}, {"id": "8.5", "t": "免运费的经济逻辑：补贴、获客与总成本", "u": "../ch08/48.html", "k": ["运费消失在页面上，没有消失在链条里", "合包降低的是分摊成本，不是让成本归零", "补贴是付款安排，获客是经营目的", "看总成本，也看承诺的边界"]}, {"id": "8.6", "t": "本章骨架小结与实物探索任务", "u": "../ch08/49.html", "k": ["把本章五个原理连成一张图", "用“三本账”检验直觉", "实物探索：从手边的包裹找证据", "让AI帮你追问，而不是替你下结论"]}]}, {"title": "第九章 AI协同扩展——把一个包裹变成可验证的问题", "u": "../ch09/index.html", "secs": [{"id": "9.1", "t": "用AI读懂运单、轨迹与报关信息", "u": "../ch09/50.html", "k": ["先认清手里的三类材料", "把AI当作整理员，而不是查询终端", "遇到清关通知，要回到正式渠道"]}, {"id": "9.2", "t": "动手实验：记录一个包裹的全程时间线", "u": "../ch09/51.html", "k": ["选一个包裹，先认清记录对象", "沿着交接点，持续补全时间线", "算时间，但别把空白算成作业时间", "用实物核对，再请AI协助提问"]}, {"id": "9.3", "t": "三阶提问阶梯：从查物流到分析行业", "u": "../ch09/52.html", "k": ["第一阶：查清“这条记录说了什么”", "第二阶：沿着交接点问“它处在哪一段”", "第三阶：把个案变成可检验的行业问题"]}, {"id": "9.4", "t": "本章骨架小结与实物探索任务", "u": "../ch09/53.html", "k": ["把AI放在证据旁边，而不是证据上面", "用一个包裹完成四项实物探索", "把记录带给AI，继续向下追问", "从“等包裹”走向“看系统”"]}]}], "e": [["1.1", "2.1", 8, "港口"], ["1.1", "2.4", 11, "集运仓"], ["1.1", "3.5", 8, "派送"], ["1.1", "4.1", 15, "平台"], ["1.4", "3.5", 9, "派送"], ["1.4", "4.1", 12, "平台"], ["1.4", "4.2", 17, "船公司"], ["2.2", "3.2", 9, "集包"], ["2.2", "3.5", 8, "派送"], ["2.2", "5.1", 16, "中转"], ["2.2", "5.2", 7, "轨迹"], ["2.3", "3.3", 19, "拣货"], ["2.4", "3.4", 13, "报关"], ["2.5", "4.2", 8, "集装箱"], ["2.5", "6.2", 8, "集装箱"], ["2.5", "7.4", 22, "集装箱"], ["3.1", "5.2", 12, "运单"], ["3.1", "7.1", 10, "面单"], ["2.4", "3.3", 10, "集运仓"], ["3.3", "6.3", 7, "上架"], ["3.3", "7.2", 19, "出库"], ["3.4", "5.3", 9, "税费"], ["3.4", "7.5", 13, "申报"], ["3.5", "5.2", 8, "轨迹"], ["4.1", "5.3", 18, "结算"], ["4.1", "8.5", 17, "平台"], ["3.1", "4.4", 7, "面单"], ["2.1", "5.1", 18, "节点"], ["2.4", "5.1", 13, "集运仓"], ["3.5", "5.1", 7, "派送"], ["5.2", "7.1", 8, "轨迹"], ["5.2", "9.2", 7, "轨迹"], ["4.1", "5.4", 11, "商家"], ["2.1", "5.5", 8, "节点"], ["4.1", "6.3", 7, "商家"], ["2.4", "6.4", 8, "集运仓"], ["3.3", "6.4", 11, "出库"], ["3.5", "6.5", 22, "派送"], ["4.1", "6.5", 7, "平台"], ["5.1", "6.5", 11, "时效"], ["2.1", "7.3", 7, "分拨中心"], ["2.1", "7.4", 13, "港口"], ["2.1", "8.3", 28, "枢纽"], ["6.4", "8.3", 8, "班次"], ["1.1", "8.5", 12, "免运费"], ["3.1", "9.1", 12, "运单"], ["3.4", "9.1", 16, "清关"], ["5.2", "9.1", 7, "轨迹"], ["2.1", "9.2", 7, "节点"], ["2.4", "9.2", 8, "集运仓"], ["3.5", "9.2", 9, "派送"], ["4.1", "9.2", 7, "商家"], ["3.5", "9.3", 7, "派送"], ["4.1", "9.3", 7, "平台"], ["4.2", "9.3", 7, "承运人"], ["1.2", "5.2", 4, "轨迹"], ["1.3", "3.5", 4, "派送"], ["3.4", "4.3", 5, "清关"], ["4.1", "6.1", 5, "平台"], ["3.5", "8.1", 3, "派送"], ["4.1", "8.2", 5, "商家"], ["2.1", "8.4", 4, "港口"]]};
+(function () {
+const NS = "http://www.w3.org/2000/svg";
+const svg = document.getElementById("net"), tip = document.getElementById("tip"), stage = document.querySelector(".stage"), panel = document.getElementById("panel"), nav = document.getElementById("nav");
+const BOOK = DATA.ch;
+const LAYER = [
+  { n: "起点", c: "#8a8f98", d: "从一个跨境包裹走进物流行业：本书怎样读、骨架地图、书与包裹与 AI。" },
+  { n: "对象", c: "#d1495b", d: "现代物流包括什么：一个包裹的全程、物流的基本功能、行业地图与岗位。" },
+  { n: "结构", c: "#e07a2e", d: "物流网络与作业现场：节点与线路、快递网络层级、仓库、跨境链条、运载工具。" },
+  { n: "功能", c: "#c99a12", d: "每个环节做什么、行话怎么说：面单、揽收、仓储作业、报关清关、派送签收。" },
+  { n: "关系", c: "#4f9a35", d: "谁和谁怎样合作：平台与商家、货主与货代、贸易术语、加盟与直营。" },
+  { n: "流动", c: "#159e8f", d: "货物、信息、资金在网中流动，还有逆向的退货和大促时的波动。" },
+  { n: "机制", c: "#2f80c4", d: "物流怎样运转、计费与考核：计费重、拼箱整箱、库存、调度、指标。" },
+  { n: "技术", c: "#5b5bd6", d: "支撑现代物流的技术与标准：条码追踪、WMS/TMS、自动分拣、集装箱港口、电子报关。" },
+  { n: "原理", c: "#9050c8", d: "物流背后的经济学与数学：规模与密度、运输经济、网络设计、运筹、免运费逻辑。" },
+  { n: "AI", c: "#c74f9e", d: "把一个包裹变成可验证的问题：用 AI 读运单、记录时间线、三阶提问。" }
+];
+const SHORT = {
+  "1.1": "一个包裹的全程", "1.2": "基本功能", "1.3": "行业地图", "1.4": "产业链与岗位",
+  "2.1": "节点与线路", "2.2": "快递网络层级", "2.3": "仓库现场", "2.4": "跨境链条", "2.5": "运载工具",
+  "3.1": "面单与运单", "3.2": "揽收与建包", "3.3": "仓储作业", "3.4": "报关与清关", "3.5": "派送与签收",
+  "4.1": "平台与商家", "4.2": "货主与货代", "4.3": "贸易术语", "4.4": "加盟与直营",
+  "5.1": "货物流", "5.2": "信息流", "5.3": "资金流", "5.4": "逆向物流", "5.5": "需求波动",
+  "6.1": "计费重", "6.2": "拼箱与整箱", "6.3": "库存控制", "6.4": "调度与截单", "6.5": "考核指标",
+  "7.1": "条码与追踪", "7.2": "WMS 与 TMS", "7.3": "自动分拣", "7.4": "集装箱与港口", "7.5": "电子报关",
+  "8.1": "规模与密度", "8.2": "运输经济学", "8.3": "网络设计", "8.4": "运筹优化", "8.5": "免运费逻辑",
+  "9.1": "AI 读运单", "9.2": "包裹时间线", "9.3": "三阶提问"
+};
+// 1.1 节写的四段路（1.1.1–1.1.4）
+const ROUTE = ["4.1", "3.1", "3.2", "2.1", "2.4", "3.3", "2.5", "3.4", "3.5"];
+const LEGS = { "4.1": "第一段路：商家 → 集运仓", "3.3": "第二段路：仓库 → 海上运输单元", "3.4": "第三段路：跨越国境", "3.5": "最后一段路：港口 → 家门口" };
+
+const SEC = {}; BOOK.forEach((c, ci) => c.secs.forEach(s => { s.ch = ci; SEC[s.id] = s; }));
+const ids = Object.keys(SHORT);
+const NB = {}; ids.forEach(i => NB[i] = []);
+DATA.e.forEach(([a, b, n, k], i) => { NB[a].push({ o: b, n, k, i }); NB[b].push({ o: a, n, k, i }); });
+
+// ---------- layout: 9 lanes, barycentric ordering ----------
+const X0 = 210, X1 = 1165, TOP = 64, LH = 98;
+const lanes = []; for (let l = 1; l <= 9; l++) lanes[l] = ids.filter(i => +i[0] === l);
+const P = {};
+function place() { for (let l = 1; l <= 9; l++) { const arr = lanes[l], m = arr.length, gap = (X1 - X0) / m;
+  arr.forEach((id, j) => P[id] = { x: X0 + gap * (j + .5) + (l % 2 ? -14 : 14), y: TOP + LH * (l - 1) + 34 }); } }
+place();
+for (let it = 0; it < 6; it++) {
+  for (let l = 1; l <= 9; l++) {
+    const bc = id => { const nb = NB[id]; if (!nb.length) return P[id].x; let s = 0, w = 0; nb.forEach(e => { s += P[e.o].x * e.n; w += e.n; }); return s / w; };
+    lanes[l].sort((a, b) => bc(a) - bc(b));
+  }
+  place();
+}
+const H = TOP + LH * 9 + 10;
+svg.setAttribute("viewBox", `0 0 1200 ${H}`);
+
+const el = (tag, at, parent) => { const e = document.createElementNS(NS, tag); for (const k in at) e.setAttribute(k, at[k]); (parent || svg).appendChild(e); return e; };
+const defs = el("defs", {});
+// grid
+const pat = el("pattern", { id: "grid", width: 24, height: 24, patternUnits: "userSpaceOnUse" }, defs);
+el("path", { d: "M24 0H0V24", fill: "none", stroke: "var(--grid)", "stroke-width": 1 }, pat);
+el("rect", { x: 0, y: 0, width: 1200, height: H, fill: "url(#grid)" });
+
+// bands
+const bands = [];
+for (let l = 1; l <= 9; l++) {
+  const y = TOP + LH * (l - 1), C = LAYER[l].c;
+  const g = el("g", { class: "band", "data-ch": l });
+  el("rect", { x: 10, y: y + 3, width: 1180, height: LH - 6, rx: 16, fill: C, "fill-opacity": "var(--band)" }, g);
+  el("rect", { x: 10, y: y + 3, width: 6, height: LH - 6, rx: 3, fill: C }, g);
+  const lab = el("g", { class: "lanelab" }, g);
+  el("circle", { cx: 44, cy: y + LH / 2 - 8, r: 14, fill: C }, lab);
+  const t0 = el("text", { x: 44, y: y + LH / 2 - 3, "text-anchor": "middle", "font-size": 14, "font-weight": 700 }, lab); t0.textContent = l; t0.style.fill = "#fff";
+  const t1 = el("text", { x: 66, y: y + LH / 2 - 3, "font-size": 17, "font-weight": 700 }, lab); t1.textContent = LAYER[l].n; t1.style.fill = C;
+  const t2 = el("text", { x: 30, y: y + LH / 2 + 22, "font-size": 12 }, lab); t2.textContent = BOOK[l].title.split(/\s/)[0]; t2.style.fill = "var(--muted)";
+  g.addEventListener("click", e => { if (!e.target.closest(".node")) showCh(l); });
+  g.style.cursor = "pointer";
+  bands.push(g);
+}
+// edges
+const EG = el("g", {}), edges = [];
+DATA.e.forEach(([a, b, n, k], i) => {
+  const A = P[a], B = P[b], [p, q] = A.y <= B.y ? [A, B] : [B, A], [ia, ib] = A.y <= B.y ? [a, b] : [b, a];
+  const my = (p.y + q.y) / 2, bend = (q.y - p.y) * .45;
+  const d = `M${p.x},${p.y} C${p.x},${p.y + bend} ${q.x},${q.y - bend} ${q.x},${q.y}`;
+  const gid = "eg" + i, gr = el("linearGradient", { id: gid, gradientUnits: "userSpaceOnUse", x1: p.x, y1: p.y, x2: q.x, y2: q.y }, defs);
+  el("stop", { offset: 0, "stop-color": LAYER[+ia[0]].c }, gr); el("stop", { offset: 1, "stop-color": LAYER[+ib[0]].c }, gr);
+  const path = el("path", { d, class: "edge", stroke: `url(#${gid})`, "data-a": a, "data-b": b }, EG);
+  path.style.setProperty("--d", (0.9 + Math.min(p.y, q.y) / H * 1.4).toFixed(2) + "s");
+  path.style.setProperty("--len", path.getTotalLength().toFixed(1));
+  edges.push(path);
+});
+// route
+const RG = el("g", {});
+const rp = ROUTE.map(id => P[id]);
+let rd = `M${rp[0].x},${rp[0].y}`; for (let i = 1; i < rp.length; i++) { const a = rp[i - 1], b = rp[i], m = (a.y + b.y) / 2; rd += ` C${a.x},${m} ${b.x},${m} ${b.x},${b.y}`; }
+const route = el("path", { d: rd, class: "route" }, RG);
+ROUTE.forEach((id, i) => { const g = el("g", { class: "leg" }, RG); el("circle", { cx: P[id].x + 17, cy: P[id].y - 15, r: 9, fill: "#e0a020" }, g);
+  const tt = el("text", { x: P[id].x + 17, y: P[id].y - 11, "text-anchor": "middle" }, g); tt.textContent = i + 1; });
+const parcel = el("g", { class: "parcel" }, RG);
+el("rect", { x: -11, y: -10, width: 22, height: 18, rx: 3, fill: "#c98a3c", stroke: "#7a4f1c", "stroke-width": 1.5 }, parcel);
+el("path", { d: "M-11,-3H11M0,-10V8", stroke: "#f3dfa8", "stroke-width": 2 }, parcel);
+// nodes
+const NG = el("g", {}), nodes = {};
+ids.forEach(id => {
+  const p = P[id], l = +id[0], C = LAYER[l].c;
+  const g = el("g", { class: "node", "data-id": id, "data-ch": l, tabindex: 0, role: "button", "aria-label": id + " " + SEC[id].t }, NG);
+  g.style.setProperty("--d", (0.15 + (l - 1) * .09).toFixed(2) + "s");
+  el("circle", { class: "hit", cx: p.x, cy: p.y, r: 24 }, g);
+  el("circle", { class: "pulse", cx: p.x, cy: p.y, r: 12, stroke: C }, g);
+  el("circle", { class: "ring", cx: p.x, cy: p.y, r: 12, stroke: C }, g);
+  el("circle", { class: "core", cx: p.x, cy: p.y, r: 6, fill: C }, g);
+  const deg = NB[id].length;
+  if (deg >= 6) el("circle", { cx: p.x, cy: p.y, r: 17, fill: "none", stroke: C, "stroke-width": 1.2, "stroke-dasharray": "2 3" }, g);
+  const t = el("text", { x: p.x, y: p.y + 31, "text-anchor": "middle", "font-size": 13.5 }, g); t.textContent = SHORT[id];
+  const t2 = el("text", { x: p.x, y: p.y - 18, "text-anchor": "middle", "font-size": 10.5 }, g); t2.textContent = id; t2.style.fill = C;
+  nodes[id] = g;
+});
+svg.appendChild(RG);
+
+// ---------- state ----------
+let curCh = -1, curId = null, tripOn = false;
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+const chName = ci => BOOK[ci].title.split(/\s/)[0];
+function apply() {
+  svg.classList.toggle("focus", curCh >= 1 || !!curId);
+  const nbs = curId ? new Set(NB[curId].map(e => e.o)) : null;
+  Object.entries(nodes).forEach(([id, g]) => {
+    const on = curId ? (id === curId || nbs.has(id)) : (curCh >= 1 && +id[0] === curCh);
+    g.classList.toggle("on", !!on); g.classList.toggle("sel", id === curId);
+  });
+  edges.forEach(p => {
+    const a = p.dataset.a, b = p.dataset.b;
+    p.classList.toggle("hot", !!curId && (a === curId || b === curId));
+    p.classList.toggle("warm", !curId && curCh >= 1 && (+a[0] === curCh || +b[0] === curCh));
+  });
+  bands.forEach(b => b.classList.toggle("on", +b.dataset.ch === curCh || (curId && +b.dataset.ch === +curId[0])));
+  nav.querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", String(+b.dataset.ch === curCh && !curId || (curCh < 0 && !curId && b.dataset.ch === "-1"))));
+}
+function askText(s, nb) {
+  return `我在读《现代物流》（AI时代系统知识基础读物）${s.id} ${s.t}。本节要点：${s.k.join("；")}。` +
+    (nb.length ? `书中与它相连的小节有：${nb.slice(0, 4).map(e => e.o + " " + SEC[e.o].t + "（共同概念：" + e.k + "）").join("；")}。` : "") +
+    `\n请结合物流作为一个系统（对象、结构、功能、关系、流动、机制、技术、原理）的整体结构，讲清这一节和这些相连小节之间的关系，再给我 3 个可以用自己手边的包裹或公开资料核实的问题。`;
+}
+function showSec(id) {
+  stopTrip(); const s = SEC[id]; curId = id; curCh = -1; apply();
+  const l = s.ch, nb = NB[id].slice().sort((a, b) => b.n - a.n);
+  panel.innerHTML = `<div class="kick"><i style="background:${LAYER[l].c}"></i>${esc(chName(l))} · ${LAYER[l].n}</div><h2>${esc(s.id + " " + s.t)}</h2>
+  <p class="meta">本节要点</p><ul>${s.k.map(k => `<li>${esc(k)}</li>`).join("")}</ul>
+  <p class="meta">与它相连（${nb.length} 条线）</p>
+  <ul class="secs">${nb.map(e => `<li><button type="button" data-sec="${e.o}"><b style="color:${LAYER[+e.o[0]].c}">${e.o}</b>${esc(SHORT[e.o])}<span class="why">两节都讲到「${esc(e.k)}」</span></button></li>`).join("")}</ul>
+  <div class="acts"><a class="pri" href="${esc(s.u)}">读这一节 →</a><button class="sec" type="button" id="ask">复制去问 AI</button><button class="sec" type="button" data-goch="${l}">看这一层</button></div>`;
+  bindPanel(askText(s, nb));
+}
+function showCh(ci) {
+  stopTrip(); curCh = ci; curId = null; apply();
+  const C = BOOK[ci], L = LAYER[ci];
+  const inNet = C.secs.filter(s => SHORT[s.id]), other = C.secs.filter(s => !SHORT[s.id]);
+  const out = {}; inNet.forEach(s => NB[s.id].forEach(e => { const k = +e.o[0]; out[k] = (out[k] || 0) + 1; }));
+  const outs = Object.entries(out).sort((a, b) => b[1] - a[1]);
+  panel.innerHTML = `<div class="kick"><i style="background:${L.c}"></i>${esc(chName(ci))} · ${L.n}</div><h2>${esc(C.title.replace(/^\S+\s/, ""))}</h2><p class="meta">${esc(L.d)}</p>
+  <ul class="secs">${inNet.map(s => `<li><button type="button" data-sec="${s.id}"><b style="color:${L.c}">${s.id}</b>${esc(s.t)}</button></li>`).join("")}
+  ${other.map(s => `<li><a href="${esc(s.u)}"><b style="color:var(--muted)">${s.id}</b>${esc(s.t)} ↗</a></li>`).join("")}</ul>
+  ${outs.length ? `<p class="meta">这一层连得最多的是：${outs.slice(0, 3).map(([k, n]) => `<b style="color:${LAYER[k].c}">${LAYER[k].n}</b>（${n} 条）`).join("、")}</p>` : ""}
+  <div class="acts"><a class="pri" href="${esc(C.secs[0].u)}">从本章开头读 →</a></div>`;
+  bindPanel(null);
+}
+function showStart() {
+  stopTrip(); curCh = 0; curId = null; apply();
+  const C = BOOK[0];
+  panel.innerHTML = `<div class="kick"><i style="background:${LAYER[0].c}"></i>序章 · 起点</div><h2>${esc(C.title.replace(/^\S+\s/, ""))}</h2><p class="meta">${esc(LAYER[0].d)}</p>
+  <ul class="secs">${C.secs.map(s => `<li><a href="${esc(s.u)}"><b style="color:var(--muted)">${s.id}</b>${esc(s.t)} ↗</a></li>`).join("")}</ul>
+  <div class="acts"><a class="pri" href="${esc(C.secs[0].u)}">从序章读起 →</a><button class="sec" type="button" id="trip2">📦 跟一个包裹走</button></div>`;
+  bindPanel(null); panel.querySelector("#trip2").onclick = startTrip;
+}
+function showAll() {
+  stopTrip(); curCh = -1; curId = null; apply();
+  panel.innerHTML = `<div class="kick">全书 · 一张网</div><h2>现代物流</h2>
+  <p class="meta">九章书，九层颜色，${ids.length} 个节点，${DATA.e.length} 条线。物流本来就是一张网：网点、分拨中心、枢纽由线路连在一起；这本书的知识也是这样连起来的。</p>
+  <ul class="secs">${LAYER.map((L, i) => `<li><button type="button" data-goch="${i}"><b style="color:${L.c}">●</b>${L.n} · ${esc(chName(i))} ${esc(BOOK[i].title.replace(/^\S+\s/, "").split(/[：——]/)[0])}</button></li>`).join("")}</ul>
+  <p class="meta" style="margin-top:8px">带虚线外圈的节点连线最多，是全书的“枢纽”。试试右上角的「📦 跟一个包裹走」。</p>`;
+  bindPanel(null);
+}
+function bindPanel(ask) {
+  panel.querySelectorAll("[data-sec]").forEach(b => b.onclick = () => showSec(b.dataset.sec));
+  panel.querySelectorAll("[data-goch]").forEach(b => b.onclick = () => +b.dataset.goch === 0 ? showStart() : showCh(+b.dataset.goch));
+  const a = panel.querySelector("#ask");
+  if (a && ask) a.onclick = () => {
+    const done = () => { a.textContent = "已复制，粘贴到 AI 对话中 ✓"; setTimeout(() => a.textContent = "复制去问 AI", 2200); };
+    if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(ask).then(done, () => prompt("复制下面的文字：", ask)); else prompt("复制下面的文字：", ask);
+  };
+}
+// ---------- parcel trip ----------
+let raf = 0; const tripBtn = document.getElementById("trip");
+function startTrip() {
+  curCh = -1; curId = null; apply(); tripOn = true; svg.classList.add("trip"); tripBtn.setAttribute("aria-pressed", "true");
+  Object.entries(nodes).forEach(([id, g]) => g.classList.toggle("onroute", ROUTE.includes(id)));
+  panel.innerHTML = `<div class="kick">1.1 · 一个包裹的全程</div><h2>跟一个包裹走</h2>
+  <p class="meta">第 1.1 节写的那只从中国网购、海运到马来西亚的免运费包裹，分四段路，一路经过这些节点：</p>
+  <ul class="secs">${ROUTE.map((id, i) => `${LEGS[id] ? `<li class="meta" style="margin:8px 0 2px;color:#b07800;font-weight:600">${LEGS[id]}</li>` : ""}<li><button type="button" data-sec="${id}"><b style="color:${LAYER[+id[0]].c}">${i + 1}</b>${id} ${esc(SHORT[id])}</button></li>`).join("")}</ul>
+  <div class="acts"><a class="pri" href="${esc(SEC["1.1"].u)}">读 1.1 原文 →</a><button class="sec" type="button" id="stop">回到全网</button></div>`;
+  bindPanel(null); panel.querySelector("#stop").onclick = showAll;
+  const len = route.getTotalLength(), T = 9000, reduce = matchMedia("(prefers-reduced-motion: reduce)").matches; let t0 = null;
+  cancelAnimationFrame(raf);
+  const step = ts => { if (!tripOn) return; t0 = t0 ?? ts; const f = reduce ? 1 : ((ts - t0) % (T + 1200)) / T; const pt = route.getPointAtLength(Math.min(f, 1) * len);
+    parcel.setAttribute("transform", `translate(${pt.x},${pt.y})`); raf = requestAnimationFrame(step); };
+  raf = requestAnimationFrame(step);
+  narrow() && setTimeout(() => panel.scrollIntoView({ behavior: "smooth", block: "nearest" }), 60);
+}
+function stopTrip() { tripOn = false; cancelAnimationFrame(raf); svg.classList.remove("trip"); tripBtn.setAttribute("aria-pressed", "false"); }
+tripBtn.onclick = () => tripOn ? showAll() : startTrip();
+
+// ---------- events ----------
+const narrow = () => matchMedia("(max-width: 1080px)").matches;
+const hit = e => { const g = e.target.closest(".node"); return g && g.dataset.id; };
+svg.addEventListener("click", e => { const id = hit(e); if (!id) return; showSec(id); if (narrow()) setTimeout(() => panel.scrollIntoView({ behavior: "smooth", block: "nearest" }), 60); });
+svg.addEventListener("keydown", e => { if ((e.key === "Enter" || e.key === " ") && hit(e)) { e.preventDefault(); showSec(hit(e)); } });
+svg.addEventListener("mousemove", e => {
+  const id = hit(e); if (!id) { tip.classList.remove("show"); return; }
+  const r = stage.getBoundingClientRect(); tip.textContent = `${id} ${SEC[id].t} · ${NB[id].length} 条线`;
+  tip.style.left = (e.clientX - r.left) + "px"; tip.style.top = (e.clientY - r.top) + "px"; tip.classList.add("show");
+});
+svg.addEventListener("mouseleave", () => tip.classList.remove("show"));
+nav.innerHTML = `<button type="button" data-ch="-1"><span class="dot" style="--c:var(--ink)"></span><span class="nm">全网<small>一本书，一张网</small></span></button>` +
+  LAYER.map((L, i) => `<button type="button" data-ch="${i}"><span class="dot" style="--c:${L.c}"></span><span class="nm">${L.n}<small>${esc(chName(i))}</small></span></button>`).join("");
+nav.querySelectorAll("button").forEach(b => b.onclick = () => { const c = +b.dataset.ch; c < 0 ? showAll() : c === 0 ? showStart() : showCh(c); });
+function draw() { svg.classList.remove("draw"); void svg.getBoundingClientRect(); svg.classList.add("draw"); setTimeout(() => svg.classList.remove("draw"), 4200); }
+document.getElementById("redraw").onclick = () => { showAll(); draw(); };
+showAll(); draw();
+})();
+</script>
+</body>
+</html>
