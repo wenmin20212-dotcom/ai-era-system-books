@@ -10,7 +10,7 @@ default-theme = "light"
 preferred-dark-theme = "navy"
 site-url = "/smartglasses/"
 git-repository-url = "https://github.com/wenmin20212-dotcom/ai-era-system-books"
-additional-js = ["giscus.js"]
+additional-js = ["giscus.js", "explorer-link.js"]
 additional-css = ["book.css"]
 
 [output.html.search]
@@ -18,3 +18,7 @@ enable = true
 
 [output.html.print]
 enable = true
+
+# Only this book generates the explorer dataset before rendering.
+[preprocessor.explorer-data]
+command = "python3 books/smartglasses/tools/generate_explorer.py --mdbook"
