@@ -1,0 +1,10 @@
+{
+  "bookId":"smartglasses",
+  "chapterId":"ch1",
+  "representation":"teaching-combinations",
+  "variants":[
+    {"id":"camera","number":"01","name":"音频摄像眼镜","tagline":"听见，也能记录。","summary":"声音与记录来到镜架上，数字画面并没有来到眼前。","description":"在这组教学配置中，麦克风、扬声器与摄像头共同工作，结果主要通过声音反馈。","capabilities":{"audio":true,"camera":true,"display":false,"spatial":false}},
+    {"id":"display","number":"02","name":"近眼显示眼镜","tagline":"把数字画面，送到眼前。","summary":"显示器与光学组件让图像可见，但不会自动赋予环境追踪能力。","description":"以微显示器和光学系统为观察重点。此教学组合不配置朝外摄像头和空间定位。","capabilities":{"audio":true,"camera":false,"display":true,"spatial":false}},
+    {"id":"ar","number":"03","name":"空间 AR 教学组合","tagline":"让内容，与空间建立关系。","summary":"感知、计算与显示持续配合，让数字内容能够与真实位置关联。","description":"在这组教学组合中，视觉与运动感知协助估计位置。实际能力还取决于软件、标定与环境。","capabilities":{"audio":true,"camera":true,"display":true,"spatial":true}}
+  ]
+}

@@ -8,7 +8,8 @@
   const match = relative.match(/^ch(\d+)\/(?:index|\d+)\.html$/);
   const main = document.querySelector('main');
   if (!main) return;
-  const url = new URL('explorer/index.html', base);
+  const url = new URL(match && Number(match[1]) === 1
+    ? 'explorer/chapter-one.html' : 'explorer/index.html', base);
   if (match) {
     url.searchParams.set('chapter', 'ch' + Number(match[1]));
     const title = main.querySelector('h1')?.textContent.trim() || '';

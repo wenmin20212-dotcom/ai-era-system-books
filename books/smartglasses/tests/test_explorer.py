@@ -61,6 +61,17 @@ class ExplorerIntegrationTests(unittest.TestCase):
         self.assertEqual(result.returncode,0,result.stderr)
         self.assertEqual(json.loads(result.stdout),original)
 
+    def test_chapter_one_teaching_combinations_keep_capability_boundaries(self):
+        config=json.loads((BOOK/'src/explorer/chapter-one-data.json').read_text())
+        variants={v['id']:v['capabilities'] for v in config['variants']}
+        self.assertFalse(variants['camera']['display'])
+        self.assertFalse(variants['camera']['spatial'])
+        self.assertTrue(variants['display']['display'])
+        self.assertFalse(variants['display']['camera'])
+        self.assertFalse(variants['display']['spatial'])
+        self.assertTrue(variants['ar']['spatial'])
+        self.assertEqual(config['representation'],'teaching-combinations')
+
     def test_scope_does_not_touch_other_books(self):
         repo=BOOK.parents[1]
         result=subprocess.run(['git','status','--porcelain','-uall','-z'],cwd=repo,text=True,capture_output=True,check=True)
