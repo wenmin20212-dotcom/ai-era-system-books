@@ -4,6 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AI时代系统知识基础读物</title>
+<meta name="description" content="以真实系统为中心，“书 + 实物 + AI”的系统知识丛书，作者 文军。在线免费阅读。">
+<meta property="og:title" content="AI时代系统知识基础读物">
+<meta property="og:description" content="以真实系统为中心，“书 + 实物 + AI”的系统知识丛书，作者 文军。在线免费阅读。">
+<meta property="og:url" content="https://books.sagewritepress.com/">
+<meta property="og:type" content="website">
 <style>
 :root { --ink: #1f2933; --muted: #52606d; --line: #d9e2ec; --accent: #1d5fbf; --bg: #ffffff; --card: #f5f8fc; }
 @media (prefers-color-scheme: dark) { :root { --ink: #e4e7eb; --muted: #9aa5b1; --line: #334e68; --accent: #7cb4ff; --bg: #0f1722; --card: #17212f; } }
@@ -21,11 +26,31 @@ h2 small { color: var(--muted); font-weight: normal; font-size: .8em; margin-lef
 .langs a { font-size: .78em; padding: 1px 8px; border: 1px solid var(--line); border-radius: 999px; color: var(--accent); text-decoration: none; background: var(--card); }
 .langs a:hover, .book .cov:hover img { outline: 2px solid var(--accent); }
 footer { color: var(--muted); font-size: .85em; margin-top: 3em; }
+.share-wrap { position: relative; display: inline-block; margin-left: .6em; }
+.share-btn { font: inherit; color: var(--accent); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; }
+.share-pop { position: absolute; left: 0; top: 1.8em; z-index: 10; width: 240px; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 6px 20px rgba(0,0,0,.18); padding: 8px; }
+.share-pop[hidden] { display: none; }
+.share-pop button, .share-pop a { display: block; width: 100%; box-sizing: border-box; text-align: left; font: inherit; font-size: .95em; color: var(--ink); background: none; border: 0; border-radius: 6px; padding: 7px 10px; cursor: pointer; text-decoration: none; }
+.share-pop button:hover, .share-pop a:hover { background: var(--card); }
+.share-wx { display: none; text-align: center; font-size: .82em; color: var(--muted); padding: 6px 4px 2px; }
+.share-wx img { width: 150px; height: 150px; background: #fff; padding: 6px; border-radius: 4px; display: block; margin: 0 auto 4px; }
+.share-pop.wx .share-wx { display: block; }
+@media (max-width: 480px) { .share-pop { position: fixed; left: 16px; right: 16px; top: auto; bottom: 16px; width: auto; } }
 </style>
 </head>
 <body><main>
 <h1>AI时代系统知识基础读物</h1>
-<p class="sub">以真实系统为中心，“书 + 实物 + AI”的系统知识丛书 · 作者 文军 <a href="series.html">了解一下</a></p>
+<p class="sub">以真实系统为中心，“书 + 实物 + AI”的系统知识丛书 · 作者 文军 <a href="series.html">了解一下</a>
+<span class="share-wrap"><button type="button" class="share-btn" id="shareBtn" aria-expanded="false" aria-controls="sharePop">分享</button>
+<span class="share-pop" id="sharePop" hidden>
+<button type="button" id="shareCopy">复制链接</button>
+<a id="shareWa" target="_blank" rel="noopener">分享到 WhatsApp</a>
+<button type="button" id="shareWxBtn">分享到微信</button>
+<span class="share-wx"><img src="share-qr.svg" alt="本站二维码">微信扫一扫打开，再点右上角「…」转发；也可复制链接后粘贴到微信</span>
+<a id="shareFb" target="_blank" rel="noopener">分享到 Facebook</a>
+<a id="shareX" target="_blank" rel="noopener">分享到 X</a>
+<button type="button" id="shareMore" hidden>更多分享方式…</button>
+</span></span></p>
 
 <h2>丛书<small>点封面读中文版，点语言标签读其他语种</small></h2>
 <div class="grid">
@@ -73,5 +98,31 @@ footer { color: var(--muted); font-size: .85em; margin-top: 3em; }
 <div class="langs"><a href="logistics/" lang="zh-CN">中文</a></div></div>
 </div>
 <footer>© 文军。保留所有权利。</footer>
+<script>
+(function () {
+  var url = "https://books.sagewritepress.com/";
+  var title = "AI时代系统知识基础读物";
+  var text = title + " —— 以真实系统为中心的系统知识丛书，作者 文军，在线免费阅读：";
+  var btn = document.getElementById("shareBtn"), pop = document.getElementById("sharePop");
+  var copyBtn = document.getElementById("shareCopy");
+  document.getElementById("shareWa").href = "https://wa.me/?text=" + encodeURIComponent(text + url);
+  document.getElementById("shareFb").href = "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(url);
+  document.getElementById("shareX").href = "https://x.com/intent/post?text=" + encodeURIComponent(text) + "&url=" + encodeURIComponent(url);
+  function close() { pop.hidden = true; pop.classList.remove("wx"); btn.setAttribute("aria-expanded", "false"); }
+  btn.addEventListener("click", function (e) { e.stopPropagation(); if (pop.hidden) { pop.hidden = false; btn.setAttribute("aria-expanded", "true"); } else close(); });
+  pop.addEventListener("click", function (e) { e.stopPropagation(); });
+  document.addEventListener("click", close);
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") close(); });
+  function copied() { copyBtn.textContent = "已复制 ✓"; setTimeout(function () { copyBtn.textContent = "复制链接"; }, 1800); }
+  copyBtn.addEventListener("click", function () {
+    var t = text + url;
+    if (navigator.clipboard && window.isSecureContext) { navigator.clipboard.writeText(t).then(copied, fallback); } else fallback();
+    function fallback() { var ta = document.createElement("textarea"); ta.value = t; ta.style.position = "fixed"; ta.style.opacity = "0"; document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); copied(); } catch (err) { prompt("复制下面的链接：", url); } document.body.removeChild(ta); }
+  });
+  document.getElementById("shareWxBtn").addEventListener("click", function () { pop.classList.toggle("wx"); });
+  var more = document.getElementById("shareMore");
+  if (navigator.share) { more.hidden = false; more.addEventListener("click", function () { navigator.share({ title: title, text: text, url: url }).catch(function () {}); }); }
+})();
+</script>
 </main></body>
 </html>
