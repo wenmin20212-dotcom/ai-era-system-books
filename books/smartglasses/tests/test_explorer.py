@@ -34,6 +34,19 @@ class ExplorerIntegrationTests(unittest.TestCase):
                 self.assertTrue(set(section['componentIds']).issubset(component_ids))
         self.assertEqual(len(ids),len(set(ids)))
 
+    def test_every_chapter_retains_its_distinct_book_figure(self):
+        data=generator.generate()
+        all_images=[]
+        for index,chapter in enumerate(data['chapters']):
+            self.assertEqual(len(chapter['figures']),1)
+            figure=chapter['figures'][0]
+            self.assertEqual(figure['href'],f'images/fig-{index:02d}.png')
+            self.assertTrue((BOOK/'src'/figure['href']).is_file())
+            self.assertTrue(figure['caption'])
+            self.assertIn(figure,chapter['sections'][0]['figures'])
+            all_images.append(figure['href'])
+        self.assertEqual(len(set(all_images)),10)
+
     def test_display_section_is_explicitly_linked(self):
         section=next(s for c in generator.generate()['chapters'] for s in c['sections'] if s['id']=='2.4')
         self.assertEqual(section['componentIds'],['display'])

@@ -51,6 +51,16 @@ def paragraphs(text):
             out.append(block)
     return out
 
+def figures(text, source):
+    result = []
+    for caption, image in re.findall(r'!\[([^\]]*)\]\(([^)]+)\)', text):
+        target = (SRC / source).parent.joinpath(image).resolve()
+        href = target.relative_to(SRC.resolve()).as_posix()
+        if not target.is_file():
+            raise ValueError('Missing book figure: '+href)
+        result.append({'href':href, 'caption':caption, 'source':source})
+    return result
+
 def generate():
     summary = (SRC / 'SUMMARY.md').read_text()
     chapters = []
@@ -72,10 +82,13 @@ def generate():
             chapters[-1]['sections'].append({
                 'id':section_id, 'title':title, 'source':source,
                 'href':source.removesuffix('.md')+'.html',
-                'componentIds':ASSOCIATIONS[section_id], 'paragraphs':paragraphs(text)
+                'componentIds':ASSOCIATIONS[section_id], 'figures':figures(text, source),
+                'paragraphs':paragraphs(text)
             })
     if len(chapters) != 10 or sum(len(c['sections']) for c in chapters) != 57:
         raise ValueError('Expected preface + nine chapters and 57 sections; review mapping after TOC changes')
+    for chapter in chapters:
+        chapter['figures'] = [figure for section in chapter['sections'] for figure in section['figures']]
     return {'schemaVersion':1,'bookId':'smartglasses','title':'智能眼镜',
             'sourceName':'GitHub 发布书稿 Markdown', 'sourceSha256':digest.hexdigest(),
             'canonicalBase':'https://books.sagewritepress.com/smartglasses/',
