@@ -126,7 +126,7 @@ $('copy').onclick=async()=>{
   catch{$('prompt-output').select();$('copy').textContent='请按 ⌘C 或 Ctrl+C 复制';}
 };
 try{
-  const response=await fetch('./book.json');if(!response.ok)throw Error('书稿数据未载入');book=await response.json();
+  const response=await fetch('./book.json',{cache:'no-cache'});if(!response.ok)throw Error('书稿数据未载入');book=await response.json();
   document.title=book.title+' · SageWrite 三维知识探索';
   $('chapters').replaceChildren(...book.chapters.map((c,i)=>{
     const b=button('',()=>setChapter(i));
