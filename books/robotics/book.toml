@@ -1,0 +1,20 @@
+[book]
+title = "机器人"
+authors = ["文军"]
+language = "zh-CN"
+src = "src"
+description = "从电机与传感器到具身智能"
+
+[output.html]
+default-theme = "light"
+preferred-dark-theme = "navy"
+site-url = "/robotics/"
+git-repository-url = "https://github.com/wenmin20212-dotcom/ai-era-system-books"
+additional-js = ["giscus.js"]
+additional-css = ["book.css"]
+
+[output.html.search]
+enable = true
+
+[output.html.print]
+enable = true
